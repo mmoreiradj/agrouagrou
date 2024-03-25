@@ -13,6 +13,5 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "Mobile App"
-include(":app")
- 
+rootProject.name = "AgrouAgrou"
+include(":app", ":protos")
