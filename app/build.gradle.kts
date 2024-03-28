@@ -45,7 +45,7 @@ android {
     }
 
     composeOptions {
-        kotlinCompilerExtensionVersion = "1.5.9"
+        kotlinCompilerExtensionVersion = "1.5.11"
     }
 
     packaging {
@@ -56,6 +56,7 @@ android {
 }
 
 dependencies {
+    implementation(project(":common"))
     protobuf(project(":protos"))
 
     implementation(libs.core.ktx)
