@@ -3,16 +3,17 @@ package fr.agrouagrou.common.player
 import java.util.*
 
 class PlayerRegistry {
-    private val players = mutableMapOf<UUID, Player>()
+    private val mutablePlayers = mutableMapOf<UUID, Player>()
+    val players = mutablePlayers as Map<UUID, Player>
 
     fun register(username: String): Player {
         val player = Player(username)
-        players[player.id] = player
+        mutablePlayers[player.id] = player
 
         return player
     }
 
     fun unregister(id: UUID) {
-        players.remove(id)
+        mutablePlayers.remove(id)
     }
 }

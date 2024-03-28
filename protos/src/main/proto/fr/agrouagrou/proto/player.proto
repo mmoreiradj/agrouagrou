@@ -6,15 +6,15 @@ option java_package = "fr.agrouagrou.proto";
 
 package proto;
 
-// Register
-message PlayerRegisterRequest {
-  string username = 1;
-}
-
-message PlayerRegisterReply {
+message PlayerReply {
   string id = 1;
   string username = 2;
   bool alive = 3;
+}
+
+// Register
+message PlayerRegisterRequest {
+  string username = 1;
 }
 
 // Unregister
@@ -23,6 +23,7 @@ message PlayerUnregisterRequest {
 }
 
 service Player {
-  rpc Register (PlayerRegisterRequest) returns (PlayerRegisterReply) {}
+  rpc Register (PlayerRegisterRequest) returns (PlayerReply) {}
   rpc Unregister (PlayerUnregisterRequest) returns (google.protobuf.Empty) {}
+  rpc GetPlayers (google.protobuf.Empty) returns (stream PlayerReply) {}
 }

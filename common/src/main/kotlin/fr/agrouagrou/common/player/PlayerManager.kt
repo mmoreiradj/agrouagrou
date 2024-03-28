@@ -6,6 +6,7 @@ import java.util.*
 
 class PlayerManager(private val gameState: GameState) {
     private val registry = PlayerRegistry()
+    val players get() = registry.players
 
     fun register(username: String): Player {
         if (gameState.status != GameStateStatus.LOOKING_FOR_PLAYERS) {
