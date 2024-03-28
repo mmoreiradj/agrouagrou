@@ -1,3 +1,7 @@
 <resources>
-    <string name="app_name">grpc_server</string>
+    <string name="app_name">Mobile App</string>
+    <string name="simple_villager_description">A simple villager</string>
+    <string name="simple_villager_name">Simple Villager</string>
+    <string name="home">Home</string>
+    <string name="settings">Settings</string>
 </resources>
