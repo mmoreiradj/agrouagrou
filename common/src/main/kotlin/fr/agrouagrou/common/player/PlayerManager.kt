@@ -1,18 +1,21 @@
 package fr.agrouagrou.common.player
 
+import fr.agrouagrou.common.state.GameState
+import fr.agrouagrou.common.state.GameStateStatus
 import java.util.*
 
-class PlayerManager {
-    private val players = mutableMapOf<UUID, Player>()
+class PlayerManager(private val gameState: GameState) {
+    private val registry = PlayerRegistry()
 
     fun register(username: String): Player {
-        val player = Player(username)
-        players[player.id] = player
+        if (gameState.status != GameStateStatus.LOOKING_FOR_PLAYERS) {
+            throw IllegalStateException("Cannot register player when game is not looking for players")
+        }
 
-        return player
+        return registry.register(username)
     }
 
     fun unregister(id: UUID) {
-        players.remove(id)
+        registry.unregister(id)
     }
 }

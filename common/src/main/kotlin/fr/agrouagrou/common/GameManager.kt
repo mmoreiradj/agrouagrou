@@ -5,5 +5,5 @@ import fr.agrouagrou.common.state.GameState
 
 class GameManager {
     val gameState = GameState()
-    val playerManager = PlayerManager()
+    val playerManager = PlayerManager(gameState)
 }
