@@ -1,4 +1,4 @@
-package fr.agrouagrou.mobileapp
+package fr.agrouagrou.mobileapp.ui.data
 
 import androidx.compose.runtime.Composable
 

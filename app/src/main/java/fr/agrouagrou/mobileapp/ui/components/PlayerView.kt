@@ -1,4 +1,4 @@
-package fr.agrouagrou.mobileapp
+package fr.agrouagrou.mobileapp.ui.components
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Column

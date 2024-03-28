@@ -1,4 +1,4 @@
-package fr.agrouagrou.mobileapp
+package fr.agrouagrou.mobileapp.network
 
 import io.grpc.ManagedChannel
 import fr.agrouagrou.proto.helloworld.GreeterGrpcKt

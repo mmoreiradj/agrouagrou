@@ -1,5 +1,7 @@
-package fr.agrouagrou.mobileapp
+package fr.agrouagrou.mobileapp.ui.components
 
+import androidx.annotation.DrawableRes
+import androidx.annotation.StringRes
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.Image
@@ -23,6 +25,12 @@ import androidx.compose.ui.tooling.preview.PreviewParameterProvider
 import androidx.compose.ui.unit.sp
 import fr.agrouagrou.grpc_server.R
 import fr.agrouagrou.mobileapp.ui.theme.AppTheme
+
+data class Card(
+    @DrawableRes val imageRes: Int,
+    @StringRes val imageDescriptionRes: Int,
+    @StringRes val cardNameRes: Int
+)
 
 @Preview(showBackground = true)
 @Composable

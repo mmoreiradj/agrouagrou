@@ -1,4 +1,4 @@
-package fr.agrouagrou.mobileapp
+package fr.agrouagrou.mobileapp.network
 
 import io.grpc.InsecureServerCredentials
 import io.grpc.okhttp.OkHttpServerBuilder
