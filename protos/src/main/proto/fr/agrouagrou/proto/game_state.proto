@@ -8,6 +8,7 @@ package proto;
 
 enum GameStateStatus {
   LOOKING_FOR_PLAYERS = 0;
+  STARTING_GAME = 1;
 }
 
 // GetGameState
@@ -29,4 +30,6 @@ message StreamGameStateReply {
 service GameState {
   rpc GetGameState (google.protobuf.Empty) returns (GetGameStateReply) {}
   rpc StreamGameState (google.protobuf.Empty) returns (stream StreamGameStateReply) {}
+
+  rpc StartGame (google.protobuf.Empty) returns (google.protobuf.Empty) {}
 }

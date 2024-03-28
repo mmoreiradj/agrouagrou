@@ -13,12 +13,18 @@ class DedicatedServer(private val port: Int) {
     private val server: Server =
         ServerBuilder
             .forPort(port)
-            .addService(GameStateService(gameManager.gameState))
+            .addService(GameStateService(gameManager))
             .addService(PlayerService(gameManager.playerManager))
             .addService(ProtoReflectionService.newInstance())
+            .intercept(GrpcExceptionInterceptor())
             .build()
 
     fun run() {
+        Runtime.getRuntime().addShutdownHook(Thread {
+            println("Shutting down the server")
+            server.shutdown()
+        })
+
         server.start()
         println("Server started, listening on $port")
         server.awaitTermination()
