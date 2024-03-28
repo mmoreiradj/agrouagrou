@@ -5,7 +5,6 @@ import androidx.compose.animation.core.tween
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
-import androidx.compose.material3.Card
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -22,7 +21,8 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.tooling.preview.PreviewParameterProvider
 import androidx.compose.ui.unit.sp
-import fr.agrouagrou.mobileapp.ui.theme.MobileAppTheme
+import fr.agrouagrou.grpc_server.R
+import fr.agrouagrou.mobileapp.ui.theme.AppTheme
 
 @Preview(showBackground = true)
 @Composable
@@ -35,7 +35,7 @@ fun CardView(
         animationSpec = tween(500),
         label = ""
     )
-    MobileAppTheme {
+    AppTheme {
         Column(
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
