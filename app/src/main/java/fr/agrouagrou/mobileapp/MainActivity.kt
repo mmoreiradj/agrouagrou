@@ -44,22 +44,7 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(), color = MaterialTheme.colorScheme.background
                 ) {
                     Scaffold(topBar = {
-                        TopAppBar(
-                            title = {
-                                Column(
-                                    modifier = Modifier.fillMaxSize(),
-                                    verticalArrangement = Arrangement.Center,
-                                    horizontalAlignment = Alignment.CenterHorizontally
-                                ) {
-                                    Text(
-                                        text = "\uD83D\uDC3A AgrouAgrou",
-                                    )
-                                }
-                            }, colors = topAppBarColors(
-                                titleContentColor = MaterialTheme.colorScheme.primary,
-                                containerColor = MaterialTheme.colorScheme.primaryContainer,
-                            )
-                        )
+                        TopBar()
                     }, bottomBar = {
                         NavigationBar(navController = navController)
                     }) { innerPadding ->
@@ -103,4 +88,25 @@ fun NavigationBar(navController: NavController) {
                 )
             })
     }
+}
+
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+fun TopBar() {
+    TopAppBar(
+        title = {
+            Column(
+                modifier = Modifier.fillMaxSize(),
+                verticalArrangement = Arrangement.Center,
+                horizontalAlignment = Alignment.CenterHorizontally
+            ) {
+                Text(
+                    text = "\uD83D\uDC3A AgrouAgrou",
+                )
+            }
+        }, colors = topAppBarColors(
+            titleContentColor = MaterialTheme.colorScheme.primary,
+            containerColor = MaterialTheme.colorScheme.primaryContainer,
+        )
+    )
 }
