@@ -1,0 +1,32 @@
+syntax = "proto3";
+import "google/protobuf/empty.proto";
+
+option java_multiple_files = true;
+option java_package = "fr.agrouagrou.proto";
+
+package proto;
+
+enum GameStateStatus {
+  LOOKING_FOR_PLAYERS = 0;
+}
+
+// GetGameState
+message GetGameStateReply {
+  GameStateStatus status = 1;
+}
+
+// StreamGameState
+message StreamGameStateReply {
+  message StatusChange {
+    GameStateStatus status = 1;
+  }
+
+  oneof notification {
+    StatusChange status_change = 1;
+  }
+}
+
+service GameState {
+  rpc GetGameState (google.protobuf.Empty) returns (GetGameStateReply) {}
+  rpc StreamGameState (google.protobuf.Empty) returns (stream StreamGameStateReply) {}
+}
