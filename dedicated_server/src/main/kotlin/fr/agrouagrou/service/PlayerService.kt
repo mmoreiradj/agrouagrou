@@ -16,7 +16,7 @@ class PlayerService(private val playerManager: PlayerManager) : PlayerGrpcKt.Pla
 
             id = player.id.toString()
             username = player.username
-            alive = player.alive
+            alive = player.state
         }
 
     override suspend fun unregister(request: PlayerUnregisterRequest): Empty {
