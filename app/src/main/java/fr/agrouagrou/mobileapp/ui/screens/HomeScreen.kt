@@ -24,13 +24,13 @@ fun HomeScreen() {
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = spacedBy(16.dp)
     ) {
-        Text(text = stringResource(id = R.string.game_creation_no_active_game), fontSize = 30.sp)
+        Text(text = stringResource(id = R.string.home_title), fontSize = 30.sp)
         Button(onClick = { /*TODO*/ }) {
             Row(
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 Icon(imageVector = Icons.Filled.Add, contentDescription = null)
-                Text(text = stringResource(id = R.string.game_creation_create_game))
+                Text(text = stringResource(id = R.string.home_create_game))
             }
         }
         Button(onClick = { /*TODO*/ }) {
@@ -38,7 +38,7 @@ fun HomeScreen() {
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 Icon(imageVector = Icons.AutoMirrored.Filled.ExitToApp, contentDescription = null)
-                Text(text = stringResource(id = R.string.game_creation_join_game))
+                Text(text = stringResource(id = R.string.home_join_game))
             }
         }
     }
