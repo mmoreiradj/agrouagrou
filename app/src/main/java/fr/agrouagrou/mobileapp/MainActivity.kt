@@ -1,46 +1,84 @@
 package fr.agrouagrou.mobileapp
 
 import android.os.Bundle
-import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.safeDrawingPadding
-import androidx.compose.foundation.layout.statusBarsPadding
-import androidx.compose.material3.Button
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Home
+import androidx.compose.material.icons.filled.Settings
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.NavigationBar
+import androidx.compose.material3.NavigationBarItem
+import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
+import androidx.compose.material3.TopAppBar
+import androidx.compose.material3.TopAppBarDefaults.topAppBarColors
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.rememberCoroutineScope
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
-import io.grpc.okhttp.OkHttpChannelBuilder
-import kotlinx.coroutines.launch
+import androidx.lifecycle.ViewModel
+import androidx.navigation.NavController
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
+import androidx.navigation.compose.rememberNavController
 import fr.agrouagrou.mobileapp.ui.theme.AppTheme
 
+class MainViewModel : ViewModel()
+
 class MainActivity : ComponentActivity() {
+    @OptIn(ExperimentalMaterial3Api::class)
     override fun onCreate(savedInstanceState: Bundle?) {
-        enableEdgeToEdge()
         super.onCreate(savedInstanceState)
         val server = HelloWorldServer(9090)
 
         setContent {
+            val navController = rememberNavController()
             AppTheme {
-                // A surface container using the 'background' color from the theme
                 Surface(
-                    modifier = Modifier.fillMaxSize(),
+                    modifier = Modifier.fillMaxSize(), color = MaterialTheme.colorScheme.background
                 ) {
-                    Greeting(server)
+                    Scaffold(topBar = {
+                        TopAppBar(
+                            title = {
+                                Column(
+                                    modifier = Modifier.fillMaxSize(),
+                                    verticalArrangement = Arrangement.Center,
+                                    horizontalAlignment = Alignment.CenterHorizontally
+                                ) {
+                                    Text(
+                                        text = "\uD83D\uDC3A AgrouAgrou",
+                                    )
+                                }
+                            }, colors = topAppBarColors(
+                                titleContentColor = MaterialTheme.colorScheme.primary,
+                                containerColor = MaterialTheme.colorScheme.primaryContainer,
+                            )
+                        )
+                    }, bottomBar = {
+                        NavigationBar(navController = navController)
+                    }) { innerPadding ->
+                        Column(
+                            modifier = Modifier.padding(innerPadding),
+                            verticalArrangement = Arrangement.spacedBy(16.dp)
+                        ) {
+                            NavHost(navController = navController, startDestination = "home") {
+                                composable("home") {
+                                    Text(text = "nain de maison")
+                                }
+                                composable("settings") {
+                                    Text(text = "nain de jardin")
+                                }
+                            }
+                        }
+                    }
                 }
             }
         }
@@ -48,43 +86,23 @@ class MainActivity : ComponentActivity() {
 }
 
 @Composable
-fun Greeting(server: HelloWorldServer, modifier: Modifier = Modifier) {
-    Column(
-        modifier = Modifier
-            .statusBarsPadding()
-            .padding(horizontal = 40.dp)
-            .safeDrawingPadding(),
-        horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.Center,
-    ) {
-        val context = LocalContext.current
-        val composableScope = rememberCoroutineScope()
-        var serverButtonEnabled by remember { mutableStateOf(true) }
-
-        Column(horizontalAlignment = Alignment.CenterHorizontally) {
-            Button(onClick = {
-                server.start()
-
-                serverButtonEnabled = false
-                Toast.makeText(context, "Server started", Toast.LENGTH_LONG).show()
-            }, enabled = serverButtonEnabled) {
-                Text("Start server")
-            }
-            Button(onClick = {
-                val channel = OkHttpChannelBuilder
-                    .forAddress("10.0.2.2", 8080)
-                    .usePlaintext()
-                    .build()
-
-                val client = HelloWorldClient(channel)
-
-                composableScope.launch {
-                    val result = client.add(60, 9)
-                    Toast.makeText(context, "Result is: $result", Toast.LENGTH_LONG).show()
-                }
-            }) {
-                Text("Add two numbers")
-            }
-        }
+fun NavigationBar(navController: NavController) {
+    NavigationBar {
+        NavigationBarItem(label = { Text(text = "Home") },
+            selected = false,
+            onClick = { navController.navigate("home") },
+            icon = {
+                Icon(
+                    imageVector = Icons.Filled.Home, contentDescription = "home button"
+                )
+            })
+        NavigationBarItem(label = { Text(text = "Settings") },
+            selected = false,
+            onClick = { navController.navigate("settings") },
+            icon = {
+                Icon(
+                    imageVector = Icons.Filled.Settings, contentDescription = "settings button"
+                )
+            })
     }
 }
