@@ -9,9 +9,12 @@ import io.grpc.Status
 
 class GrpcExceptionInterceptor : ServerInterceptor {
     private class ExceptionTranslatingServerCall<ReqT, RespT>(
-        delegate: ServerCall<ReqT, RespT>
+        delegate: ServerCall<ReqT, RespT>,
     ) : ForwardingServerCall.SimpleForwardingServerCall<ReqT, RespT>(delegate) {
-        override fun close(status: Status, trailers: Metadata) {
+        override fun close(
+            status: Status,
+            trailers: Metadata,
+        ) {
             if (status.isOk) {
                 return super.close(status, trailers)
             }
@@ -20,11 +23,13 @@ class GrpcExceptionInterceptor : ServerInterceptor {
             var newStatus = status
 
             if (status.code == Status.Code.UNKNOWN) {
-                val translatedStatus = when (cause) {
-                    is IllegalArgumentException -> Status.INVALID_ARGUMENT
-                    is IllegalStateException -> Status.FAILED_PRECONDITION
-                    else -> Status.UNKNOWN
-                }
+                val translatedStatus =
+                    when (cause) {
+                        is IllegalArgumentException -> Status.INVALID_ARGUMENT
+                        is IllegalStateException -> Status.FAILED_PRECONDITION
+                        is NotImplementedError -> Status.UNIMPLEMENTED
+                        else -> Status.UNKNOWN
+                    }
                 newStatus = translatedStatus.withDescription(cause?.message).withCause(cause)
             }
 
@@ -33,7 +38,9 @@ class GrpcExceptionInterceptor : ServerInterceptor {
     }
 
     override fun <ReqT : Any, RespT : Any> interceptCall(
-        call: ServerCall<ReqT, RespT>, headers: Metadata, next: ServerCallHandler<ReqT, RespT>
+        call: ServerCall<ReqT, RespT>,
+        headers: Metadata,
+        next: ServerCallHandler<ReqT, RespT>,
     ): ServerCall.Listener<ReqT> {
         return next.startCall(ExceptionTranslatingServerCall(call), headers)
     }

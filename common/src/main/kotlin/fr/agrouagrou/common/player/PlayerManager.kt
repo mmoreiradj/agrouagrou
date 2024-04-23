@@ -9,7 +9,7 @@ class PlayerManager(private val gameState: GameState) {
     val players get() = registry.players
 
     fun register(username: String): Player {
-        if (gameState.status != GameStateStatus.LOOKING_FOR_PLAYERS) {
+        if (gameState.status.value != GameStateStatus.LOOKING_FOR_PLAYERS) {
             throw IllegalStateException("Cannot register player when game is not looking for players")
         }
 

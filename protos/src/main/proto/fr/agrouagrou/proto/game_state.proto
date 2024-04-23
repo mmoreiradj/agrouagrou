@@ -16,20 +16,14 @@ message GetGameStateReply {
   GameStateStatus status = 1;
 }
 
-// StreamGameState
-message StreamGameStateReply {
-  message StatusChange {
-    GameStateStatus status = 1;
-  }
-
-  oneof notification {
-    StatusChange status_change = 1;
-  }
+// StreamGameStatus
+message StreamGameStatusReply {
+  GameStateStatus status = 1;
 }
 
 service GameState {
   rpc GetGameState (google.protobuf.Empty) returns (GetGameStateReply) {}
-  rpc StreamGameState (google.protobuf.Empty) returns (stream StreamGameStateReply) {}
+  rpc StreamGameState (google.protobuf.Empty) returns (stream StreamGameStatusReply) {}
 
   rpc StartGame (google.protobuf.Empty) returns (google.protobuf.Empty) {}
 }

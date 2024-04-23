@@ -27,8 +27,7 @@ class PlayerService(private val playerManager: PlayerManager) : PlayerGrpcKt.Pla
         return Empty.getDefaultInstance()
     }
 
-    override fun getPlayers(request: Empty): Flow<PlayerReply> =
-        playerManager.players.values.map(this::playerToProto).asFlow()
+    override fun getPlayers(request: Empty): Flow<PlayerReply> = playerManager.players.values.map(this::playerToProto).asFlow()
 
     private fun playerToProto(player: Player): PlayerReply {
         return playerReply {

@@ -20,10 +20,12 @@ class DedicatedServer(private val port: Int) {
             .build()
 
     fun run() {
-        Runtime.getRuntime().addShutdownHook(Thread {
-            println("Shutting down the server")
-            server.shutdown()
-        })
+        Runtime.getRuntime().addShutdownHook(
+            Thread {
+                println("Shutting down the server")
+                server.shutdown()
+            },
+        )
 
         server.start()
         println("Server started, listening on $port")

@@ -6,6 +6,8 @@ group = "fr.agrouagrou"
 version = "1.0"
 
 dependencies {
+    implementation(libs.kotlinx.coroutines.core)
+
     testImplementation(libs.kotlin.test)
 }
 
