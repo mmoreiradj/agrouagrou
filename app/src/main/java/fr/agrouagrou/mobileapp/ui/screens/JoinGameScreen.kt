@@ -1,8 +1,9 @@
 package fr.agrouagrou.mobileapp.ui.screens
 
-import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Arrangement.Absolute.spacedBy
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ExitToApp
 import androidx.compose.material3.Button
@@ -15,6 +16,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -26,7 +28,8 @@ import fr.agrouagrou.grpc_server.R
 fun JoinGameScreen() {
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.Absolute.spacedBy(16.dp)
+        verticalArrangement = spacedBy(space = 16.dp, alignment = Alignment.CenterVertically),
+        modifier = Modifier.fillMaxSize(),
     ) {
         Text(text = stringResource(id = R.string.joingame_title), fontSize = 30.sp)
         JoinGameForm()
@@ -41,7 +44,8 @@ fun JoinGameForm() {
 
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.Absolute.spacedBy(16.dp)
+        verticalArrangement = spacedBy(16.dp, alignment = Alignment.CenterVertically),
+        modifier = Modifier,
     ) {
         TextField(value = username, onValueChange = { username = it },
             label = { Text(text = stringResource(id = R.string.joingame_form_username)) }

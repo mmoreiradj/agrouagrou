@@ -29,6 +29,8 @@ import androidx.navigation.NavController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import fr.agrouagrou.mobileapp.ui.screens.HomeScreen
+import fr.agrouagrou.mobileapp.ui.screens.JoinGameScreen
 import fr.agrouagrou.mobileapp.ui.theme.AppTheme
 
 class MainViewModel : ViewModel()
@@ -52,12 +54,9 @@ class MainActivity : ComponentActivity() {
                             verticalArrangement = Arrangement.spacedBy(16.dp)
                         ) {
                             NavHost(navController = navController, startDestination = "home") {
-                                composable("home") {
-                                    Text(text = "nain de maison")
-                                }
-                                composable("settings") {
-                                    Text(text = "nain de jardin")
-                                }
+                                composable("home") { HomeScreen(navController) }
+                                composable("settings") { Text(text = "nain de jardin") }
+                                composable("join-game") { JoinGameScreen() }
                             }
                         }
                     }
