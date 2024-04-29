@@ -11,6 +11,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ExitToApp
 import androidx.compose.material3.Button
 import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -41,6 +42,11 @@ fun JoinGameForm(
             .fillMaxWidth()
             .padding(16.dp),
     ) {
+        Text(
+            text = stringResource(id = R.string.joingame_title),
+            style = MaterialTheme.typography.displayMedium,
+            color = MaterialTheme.colorScheme.primary
+        )
         OutlinedTextField(
             value = username,
             onValueChange = onUsernameChange,
