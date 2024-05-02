@@ -1,9 +1,9 @@
 package fr.agrouagrou
 
 import fr.agrouagrou.common.GameManager
-import fr.agrouagrou.service.DebugService
-import fr.agrouagrou.service.GameStateService
-import fr.agrouagrou.service.PlayerService
+import fr.agrouagrou.common.service.DebugService
+import fr.agrouagrou.common.service.GameStateService
+import fr.agrouagrou.common.service.PlayerService
 import io.grpc.Server
 import io.grpc.ServerBuilder
 import io.grpc.protobuf.services.ProtoReflectionService

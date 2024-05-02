@@ -12,12 +12,12 @@ core-ktx = { module = "androidx.core:core-ktx", version = "1.12.0" }
 espresso-core = { module = "androidx.test.espresso:espresso-core", version = "3.5.1" }
 ext-junit = { module = "androidx.test.ext:junit", version = "1.1.5" }
 grpc-kotlin-stub = { module = "io.grpc:grpc-kotlin-stub", version = "1.4.1" }
-grpc-netty = { group = "io.grpc", name = "grpc-netty", version = "1.62.2" }
-grpc-okhttp = { module = "io.grpc:grpc-okhttp", version = "1.62.2" }
-grpc-protobuf = { group = "io.grpc", name = "grpc-protobuf", version = "1.62.2" }
-grpc-protobuf-lite = { module = "io.grpc:grpc-protobuf-lite", version = "1.62.2" }
-grpc-services = { group = "io.grpc", name = "grpc-services", version = "1.62.2" }
-grpc-stub = { group = "io.grpc", name = "grpc-stub", version = "1.62.2" }
+grpc-netty = { group = "io.grpc", name = "grpc-netty", version = "1.63.0" }
+grpc-okhttp = { module = "io.grpc:grpc-okhttp", version = "1.63.0" }
+grpc-protobuf = { group = "io.grpc", name = "grpc-protobuf", version = "1.63.0" }
+grpc-protobuf-lite = { module = "io.grpc:grpc-protobuf-lite", version = "1.63.0" }
+grpc-services = { group = "io.grpc", name = "grpc-services", version = "1.63.0" }
+grpc-stub = { group = "io.grpc", name = "grpc-stub", version = "1.63.0" }
 junit = { group = "junit", name = "junit", version = "4.13.2" }
 kotlin-test = { module = "org.jetbrains.kotlin:kotlin-test", version = "1.9.23" }
 kotlinx-coroutines-core = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version = "1.8.0" }
@@ -26,7 +26,7 @@ material3 = { module = "androidx.compose.material3:material3", version = "1.2.1"
 protobuf-kotlin = { module = "com.google.protobuf:protobuf-kotlin", version = "3.25.3" }
 protobuf-kotlin-lite = { module = "com.google.protobuf:protobuf-kotlin-lite", version = "3.25.3" }
 protoc = { group = "com.google.protobuf", name = "protoc", version = "3.25.3" }
-protoc-gen-grpc-java = { group = "io.grpc", name = "protoc-gen-grpc-java", version = "1.62.2" }
+protoc-gen-grpc-java = { group = "io.grpc", name = "protoc-gen-grpc-java", version = "1.63.0" }
 protoc-gen-grpc-kotlin = { group = "io.grpc", name = "protoc-gen-grpc-kotlin", version = "1.4.1" }
 ui = { module = "androidx.compose.ui:ui", version = "1.6.4" }
 ui-graphics = { module = "androidx.compose.ui:ui-graphics", version = "1.6.4" }

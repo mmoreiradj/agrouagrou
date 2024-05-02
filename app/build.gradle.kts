@@ -1,7 +1,6 @@
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
-    alias(libs.plugins.protobuf)
 }
 
 android {
@@ -45,7 +44,7 @@ android {
     }
 
     composeOptions {
-        kotlinCompilerExtensionVersion = "1.5.9"
+        kotlinCompilerExtensionVersion = "1.5.13"
     }
 
     packaging {
@@ -56,7 +55,7 @@ android {
 }
 
 dependencies {
-    protobuf(project(":protos"))
+    implementation(project(":common"))
 
     implementation(libs.core.ktx)
     implementation(libs.lifecycle.runtime.ktx)
@@ -67,11 +66,7 @@ dependencies {
     implementation(libs.ui.tooling.preview)
     implementation(libs.material3)
 
-    api(libs.grpc.stub)
-    api(libs.grpc.protobuf.lite)
-    api(libs.grpc.kotlin.stub)
     api(libs.grpc.okhttp)
-    api(libs.protobuf.kotlin.lite)
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.ext.junit)
@@ -81,52 +76,4 @@ dependencies {
 
     debugImplementation(libs.ui.tooling)
     debugImplementation(libs.ui.test.manifest)
-}
-
-tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile>().all {
-    kotlinOptions {
-        freeCompilerArgs = listOf("-opt-in=kotlin.RequiresOptIn")
-    }
-}
-
-protobuf {
-    protoc {
-        artifact = libs.protoc.asProvider().get().toString()
-    }
-
-    plugins {
-        create("java") {
-            artifact = libs.protoc.gen.grpc.java.get().toString()
-        }
-        create("grpc") {
-            artifact = libs.protoc.gen.grpc.java.get().toString()
-        }
-        create("grpckt") {
-            artifact = libs.protoc.gen.grpc.kotlin.get().toString() + ":jdk8@jar"
-        }
-    }
-
-    generateProtoTasks {
-        all().forEach {
-            it.plugins {
-                create("java") {
-                    option("lite")
-                }
-
-                create("grpc") {
-                    option("lite")
-                }
-
-                create("grpckt") {
-                    option("lite")
-                }
-            }
-
-            it.builtins {
-                create("kotlin") {
-                    option("lite")
-                }
-            }
-        }
-    }
 }

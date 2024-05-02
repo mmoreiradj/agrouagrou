@@ -1,4 +1,4 @@
-package fr.agrouagrou.service
+package fr.agrouagrou.common.service
 
 import com.google.protobuf.Empty
 import fr.agrouagrou.common.GameManager
