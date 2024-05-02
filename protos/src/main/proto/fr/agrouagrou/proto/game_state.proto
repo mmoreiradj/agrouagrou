@@ -24,6 +24,4 @@ message StreamGameStatusReply {
 service GameState {
   rpc GetGameState (google.protobuf.Empty) returns (GetGameStateReply) {}
   rpc StreamGameState (google.protobuf.Empty) returns (stream StreamGameStatusReply) {}
-
-  rpc StartGame (google.protobuf.Empty) returns (google.protobuf.Empty) {}
 }

@@ -1,6 +1,7 @@
 package fr.agrouagrou
 
 import fr.agrouagrou.common.GameManager
+import fr.agrouagrou.service.DebugService
 import fr.agrouagrou.service.GameStateService
 import fr.agrouagrou.service.PlayerService
 import io.grpc.Server
@@ -15,6 +16,7 @@ class DedicatedServer(private val port: Int) {
             .forPort(port)
             .addService(GameStateService(gameManager))
             .addService(PlayerService(gameManager.playerManager))
+            .addService(DebugService(gameManager))
             .addService(ProtoReflectionService.newInstance())
             .intercept(GrpcExceptionInterceptor())
             .build()

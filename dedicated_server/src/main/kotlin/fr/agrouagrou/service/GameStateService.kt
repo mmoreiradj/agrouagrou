@@ -22,11 +22,6 @@ class GameStateService(private val gameManager: GameManager) : GameStateGrpcKt.G
                 }
         }
 
-    override suspend fun startGame(request: Empty): Empty {
-        gameManager.startGame()
-        return Empty.getDefaultInstance()
-    }
-
     override fun streamGameState(request: Empty): Flow<StreamGameStatusReply> =
         flow {
             gameManager.gameState.status.asStateFlow().collect {
