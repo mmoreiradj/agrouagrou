@@ -8,8 +8,8 @@ import io.grpc.Server
 import io.grpc.ServerBuilder
 import io.grpc.protobuf.services.ProtoReflectionService
 
-class DedicatedServer(private val port: Int) {
-    private val gameManager = GameManager()
+class DedicatedServer(minPlayers: Int, private val port: Int) {
+    private val gameManager = GameManager(minPlayers)
 
     private val server: Server =
         ServerBuilder
