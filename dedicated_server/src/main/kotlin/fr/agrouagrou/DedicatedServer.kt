@@ -1,6 +1,7 @@
 package fr.agrouagrou
 
 import fr.agrouagrou.common.GameManager
+import fr.agrouagrou.common.GameRules
 import fr.agrouagrou.common.service.DebugService
 import fr.agrouagrou.common.service.GameStateService
 import fr.agrouagrou.common.service.PlayerService
@@ -8,8 +9,8 @@ import io.grpc.Server
 import io.grpc.ServerBuilder
 import io.grpc.protobuf.services.ProtoReflectionService
 
-class DedicatedServer(minPlayers: Int, private val port: Int) {
-    private val gameManager = GameManager(minPlayers)
+class DedicatedServer(gameRules: GameRules, private val port: Int) {
+    private val gameManager = GameManager(gameRules)
 
     private val server: Server =
         ServerBuilder

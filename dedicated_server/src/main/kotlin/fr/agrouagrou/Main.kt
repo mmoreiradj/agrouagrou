@@ -4,13 +4,15 @@ import com.github.ajalt.clikt.core.CliktCommand
 import com.github.ajalt.clikt.parameters.options.default
 import com.github.ajalt.clikt.parameters.options.option
 import com.github.ajalt.clikt.parameters.types.int
+import fr.agrouagrou.common.GameRules
 
 class DedicatedServerCli : CliktCommand() {
     private val port by option(help = "Port to listen on").int().default(50051)
     private val minPlayers by option(help = "Minimum number of players to start the game").int().default(8)
 
     override fun run() {
-        val dedicatedServer = DedicatedServer(minPlayers, port)
+        val gameRules = GameRules(minPlayers)
+        val dedicatedServer = DedicatedServer(gameRules, port)
         dedicatedServer.run()
     }
 }
