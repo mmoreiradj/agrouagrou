@@ -1,12 +1,13 @@
 package fr.agrouagrou.common
 
+import fr.agrouagrou.common.player.LocalPlayerRegistry
 import fr.agrouagrou.common.player.PlayerManager
 import fr.agrouagrou.common.state.GameState
 import fr.agrouagrou.common.state.GameStateStatus
 
 class GameManager(private val rules: GameRules) {
     val gameState = GameState()
-    val playerManager = PlayerManager(gameState)
+    val playerManager = PlayerManager(LocalPlayerRegistry(), gameState)
 
     fun startGame() {
         if (gameState.status.value != GameStateStatus.LOOKING_FOR_PLAYERS) {
