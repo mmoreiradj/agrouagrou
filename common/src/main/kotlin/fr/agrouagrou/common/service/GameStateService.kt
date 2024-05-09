@@ -2,7 +2,7 @@ package fr.agrouagrou.common.service
 
 import com.google.protobuf.Empty
 import fr.agrouagrou.common.GameManager
-import fr.agrouagrou.common.state.GameStateStatus
+import fr.agrouagrou.common.GameState
 import fr.agrouagrou.proto.GameStateGrpcKt
 import fr.agrouagrou.proto.StreamGameStatusReply
 import fr.agrouagrou.proto.getGameStateReply
@@ -16,21 +16,21 @@ class GameStateService(private val gameManager: GameManager) : GameStateGrpcKt.G
     override suspend fun getGameState(request: Empty) =
         getGameStateReply {
             status =
-                when (gameManager.gameState.status.value) {
-                    GameStateStatus.LOOKING_FOR_PLAYERS -> GameStateStatusProto.LOOKING_FOR_PLAYERS
-                    GameStateStatus.STARTING_GAME -> GameStateStatusProto.STARTING_GAME
+                when (gameManager.gameState.value) {
+                    GameState.LOOKING_FOR_PLAYERS -> GameStateStatusProto.LOOKING_FOR_PLAYERS
+                    GameState.STARTING_GAME -> GameStateStatusProto.STARTING_GAME
                 }
         }
 
     override fun streamGameState(request: Empty): Flow<StreamGameStatusReply> =
         flow {
-            gameManager.gameState.status.asStateFlow().collect {
+            gameManager.gameState.asStateFlow().collect {
                 emit(
                     streamGameStatusReply {
                         status =
                             when (it) {
-                                GameStateStatus.LOOKING_FOR_PLAYERS -> GameStateStatusProto.LOOKING_FOR_PLAYERS
-                                GameStateStatus.STARTING_GAME -> GameStateStatusProto.STARTING_GAME
+                                GameState.LOOKING_FOR_PLAYERS -> GameStateStatusProto.LOOKING_FOR_PLAYERS
+                                GameState.STARTING_GAME -> GameStateStatusProto.STARTING_GAME
                             }
                     },
                 )
