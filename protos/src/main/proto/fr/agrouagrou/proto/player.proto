@@ -6,10 +6,18 @@ option java_package = "fr.agrouagrou.proto";
 
 package proto;
 
+enum PlayerRole {
+  VILLAGER = 0;
+  WEREWOLF = 1;
+  FORTUNE_TELLER = 2;
+  WITCH = 3;
+}
+
 message PlayerReply {
   string id = 1;
   string username = 2;
   bool alive = 3;
+  PlayerRole role = 4;
 }
 
 // Register

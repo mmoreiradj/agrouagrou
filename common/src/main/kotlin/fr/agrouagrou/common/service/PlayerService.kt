@@ -4,6 +4,7 @@ import com.google.protobuf.Empty
 import fr.agrouagrou.common.player.Player
 import fr.agrouagrou.common.player.PlayerManager
 import fr.agrouagrou.common.player.PlayerRegistry
+import fr.agrouagrou.common.player.Role
 import fr.agrouagrou.proto.PlayerGrpcKt
 import fr.agrouagrou.proto.PlayerNotification
 import fr.agrouagrou.proto.PlayerNotificationKt.playerRegistered
@@ -17,6 +18,7 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.asFlow
 import kotlinx.coroutines.flow.flow
 import java.util.*
+import fr.agrouagrou.proto.PlayerRole as RoleProto
 
 class PlayerService(private val playerManager: PlayerManager) : PlayerGrpcKt.PlayerCoroutineImplBase() {
     override suspend fun register(request: PlayerRegisterRequest): PlayerReply {
@@ -64,5 +66,14 @@ class PlayerService(private val playerManager: PlayerManager) : PlayerGrpcKt.Pla
             id = this@toProto.id.toString()
             username = this@toProto.username
             alive = this@toProto.alive
+            role = this@toProto.role.toProto()
+        }
+
+    private fun Role.toProto(): RoleProto =
+        when (this) {
+            Role.Villager -> RoleProto.VILLAGER
+            Role.Werewolf -> RoleProto.WEREWOLF
+            Role.FortuneTeller -> RoleProto.FORTUNE_TELLER
+            is Role.Witch -> RoleProto.WITCH
         }
 }
