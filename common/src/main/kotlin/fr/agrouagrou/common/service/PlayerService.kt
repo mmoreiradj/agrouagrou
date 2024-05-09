@@ -17,7 +17,7 @@ class PlayerService(private val playerManager: PlayerManager) : PlayerGrpcKt.Pla
         val player = playerManager.register(request.username)
         println("Registering new player: $player")
 
-        return playerToProto(player)
+        return player.toProto()
     }
 
     override suspend fun unregister(request: PlayerUnregisterRequest): Empty {
@@ -27,13 +27,12 @@ class PlayerService(private val playerManager: PlayerManager) : PlayerGrpcKt.Pla
         return Empty.getDefaultInstance()
     }
 
-    override fun getPlayers(request: Empty): Flow<PlayerReply> = playerManager.players.values.map(this::playerToProto).asFlow()
+    override fun getPlayers(request: Empty): Flow<PlayerReply> = playerManager.players.values.map { it.toProto() }.asFlow()
 
-    private fun playerToProto(player: Player): PlayerReply {
-        return playerReply {
-            id = player.id.toString()
-            username = player.username
-            alive = player.alive
+    private fun Player.toProto(): PlayerReply =
+        playerReply {
+            id = this@toProto.id.toString()
+            username = this@toProto.username
+            alive = this@toProto.alive
         }
-    }
 }
