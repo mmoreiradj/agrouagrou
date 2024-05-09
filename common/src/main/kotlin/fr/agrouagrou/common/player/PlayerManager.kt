@@ -17,6 +17,10 @@ class PlayerManager(private val gameState: GameState) {
     }
 
     fun unregister(id: UUID) {
+        if (gameState.status.value != GameStateStatus.LOOKING_FOR_PLAYERS) {
+            throw IllegalStateException("Cannot unregister player when game is not looking for players")
+        }
+
         registry.unregister(id)
     }
 }
