@@ -22,8 +22,25 @@ message PlayerUnregisterRequest {
   string id = 1;
 }
 
+// StreamPlayerNotifications
+message PlayerNotification {
+  message PlayerRegistered {
+    PlayerReply player = 1;
+  }
+
+  message PlayerUnregistered {
+    string id = 1;
+  }
+
+  oneof notification {
+    PlayerRegistered playerRegistered = 1;
+    PlayerUnregistered playerUnregistered = 2;
+  }
+}
+
 service Player {
   rpc Register (PlayerRegisterRequest) returns (PlayerReply) {}
   rpc Unregister (PlayerUnregisterRequest) returns (google.protobuf.Empty) {}
   rpc GetPlayers (google.protobuf.Empty) returns (stream PlayerReply) {}
+  rpc StreamPlayerNotifications (google.protobuf.Empty) returns (stream PlayerNotification) {}
 }
