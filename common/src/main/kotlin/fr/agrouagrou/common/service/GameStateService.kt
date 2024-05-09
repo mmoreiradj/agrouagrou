@@ -15,11 +15,7 @@ import fr.agrouagrou.proto.GameStateStatus as GameStateStatusProto
 class GameStateService(private val gameManager: GameManager) : GameStateGrpcKt.GameStateCoroutineImplBase() {
     override suspend fun getGameState(request: Empty) =
         getGameStateReply {
-            status =
-                when (gameManager.gameState.value) {
-                    GameState.LOOKING_FOR_PLAYERS -> GameStateStatusProto.LOOKING_FOR_PLAYERS
-                    GameState.STARTING_GAME -> GameStateStatusProto.STARTING_GAME
-                }
+            status = gameManager.gameState.value.toProto()
         }
 
     override fun streamGameState(request: Empty): Flow<StreamGameStatusReply> =
@@ -27,13 +23,18 @@ class GameStateService(private val gameManager: GameManager) : GameStateGrpcKt.G
             gameManager.gameState.asStateFlow().collect {
                 emit(
                     streamGameStatusReply {
-                        status =
-                            when (it) {
-                                GameState.LOOKING_FOR_PLAYERS -> GameStateStatusProto.LOOKING_FOR_PLAYERS
-                                GameState.STARTING_GAME -> GameStateStatusProto.STARTING_GAME
-                            }
+                        status = it.toProto()
                     },
                 )
             }
+        }
+
+    private fun GameState.toProto() =
+        when (this) {
+            GameState.LOOKING_FOR_PLAYERS -> GameStateStatusProto.LOOKING_FOR_PLAYERS
+            GameState.NIGHT_START -> GameStateStatusProto.NIGHT_START
+            GameState.NIGHT_FORTUNE_TELLER -> GameStateStatusProto.NIGHT_FORTUNE_TELLER
+            GameState.NIGHT_WEREWOLF -> GameStateStatusProto.NIGHT_WEREWOLF
+            GameState.NIGHT_WITCH -> GameStateStatusProto.NIGHT_WITCH
         }
 }

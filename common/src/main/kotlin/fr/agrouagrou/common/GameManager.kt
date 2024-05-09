@@ -6,7 +6,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 
 class GameManager(private val rules: GameRules) {
     var gameState: MutableStateFlow<GameState> = MutableStateFlow(GameState.LOOKING_FOR_PLAYERS)
-    val playerManager = PlayerManager(LocalPlayerRegistry(), gameState)
+    val playerManager = PlayerManager(LocalPlayerRegistry(), gameState, rules)
 
     fun startGame() {
         if (gameState.value != GameState.LOOKING_FOR_PLAYERS) {
@@ -15,6 +15,7 @@ class GameManager(private val rules: GameRules) {
             throw IllegalStateException("Not enough players to start the game")
         }
 
-        gameState.value = GameState.STARTING_GAME
+        playerManager.assignRoles()
+        gameState.value = GameState.NIGHT_START
     }
 }
