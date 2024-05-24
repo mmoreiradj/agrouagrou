@@ -30,7 +30,6 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import fr.agrouagrou.mobileapp.ui.screens.HomeScreen
-import fr.agrouagrou.mobileapp.ui.screens.JoinGameScreen
 import fr.agrouagrou.mobileapp.ui.theme.AppTheme
 
 class MainViewModel : ViewModel()
@@ -56,7 +55,7 @@ class MainActivity : ComponentActivity() {
                             NavHost(navController = navController, startDestination = "home") {
                                 composable("home") { HomeScreen(navController) }
                                 composable("settings") { Text(text = "nain de jardin") }
-                                composable("join-game") { JoinGameScreen() }
+                                composable("join-game") { Text(text = "join game") }
                             }
                         }
                     }

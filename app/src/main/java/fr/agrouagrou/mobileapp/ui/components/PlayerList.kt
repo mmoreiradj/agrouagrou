@@ -26,7 +26,7 @@ import fr.agrouagrou.common.player.Role
 import fr.agrouagrou.mobileapp.roleToImage
 
 @Composable
-fun PlayerList(players: List<Player>, onClick: (Player) -> Unit = {}) {
+fun PlayerList(players: List<Player>, onClick: ((Player) -> Unit)? = null ) {
     Column {
         players.forEach { player ->
             ListItem(
@@ -48,7 +48,7 @@ fun PlayerList(players: List<Player>, onClick: (Player) -> Unit = {}) {
                             .size(56.dp, 56.dp)
                     )
                 },
-                trailingContent = if (onClick != {}) {
+                trailingContent = if (onClick != null) {
                     {
                         Icon(
                             imageVector = Icons.AutoMirrored.TwoTone.KeyboardArrowRight,
@@ -71,6 +71,14 @@ fun PlayerList(players: List<Player>, onClick: (Player) -> Unit = {}) {
 @Composable
 fun PlayerListPreview(@PreviewParameter(PlayerListPreviewProvider::class) players: List<Player>) {
     PlayerList(players)
+}
+
+@Preview
+@Composable
+fun PlayerListWithClickPreview(@PreviewParameter(PlayerListPreviewProvider::class) players: List<Player>) {
+    PlayerList(players) { _ ->
+        // Do nothing
+    }
 }
 
 class PlayerListPreviewProvider : PreviewParameterProvider<List<Player>> {

@@ -11,4 +11,7 @@
     <string name="joingame_form_username">Username</string>
     <string name="joingame_form_game_code">Game Code</string>
     <string name="joingame_form_join_game">Join</string>
+    <string name="copy_game_id">Copy game ID</string>
+    <string name="waiting_for_other_players">Waiting for other players...</string>
+    <string name="your_game_id_is">Your game ID is: %1$s</string>
 </resources>
