@@ -1,0 +1,22 @@
+syntax = "proto3";
+import "google/protobuf/empty.proto";
+import "player.proto";
+
+option java_multiple_files = true;
+option java_package = "fr.agrouagrou.proto";
+
+package proto;
+
+// RevealRole
+message RevealRoleRequest {
+  string playerId = 1;
+  string targetId = 2;
+}
+
+message RevealRoleReply {
+  PlayerRole role = 1;
+}
+
+service FortuneTellerActions {
+  rpc RevealRole (RevealRoleRequest) returns (RevealRoleReply) {}
+}
