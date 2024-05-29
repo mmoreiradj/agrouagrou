@@ -7,6 +7,7 @@ import fr.agrouagrou.common.service.GameStateService
 import fr.agrouagrou.common.service.PlayerService
 import fr.agrouagrou.common.service.roles.FortuneTellerService
 import fr.agrouagrou.common.service.roles.WerewolfService
+import fr.agrouagrou.common.service.roles.WitchService
 import io.grpc.Server
 import io.grpc.ServerBuilder
 import io.grpc.protobuf.services.ProtoReflectionService
@@ -22,6 +23,7 @@ class DedicatedServer(gameRules: GameRules, private val port: Int) {
             .addService(DebugService(gameManager))
             .addService(FortuneTellerService(gameManager))
             .addService(WerewolfService(gameManager))
+            .addService(WitchService(gameManager))
             .addService(ProtoReflectionService.newInstance())
             .intercept(GrpcExceptionInterceptor())
             .build()

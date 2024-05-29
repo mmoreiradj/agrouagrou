@@ -26,4 +26,19 @@ class LocalPlayerRegistry : PlayerRegistry {
             _notifications.emit(PlayerRegistry.Notification.PlayerUnregistered(id))
         }
     }
+
+    override fun isPlayerAlive(id: UUID): Boolean {
+        return getPlayer(id).alive
+    }
+
+    override fun setPlayerAlive(
+        id: UUID,
+        alive: Boolean,
+    ) {
+        getPlayer(id).alive = alive
+    }
+
+    private fun getPlayer(id: UUID): Player {
+        return _players[id] ?: throw IllegalArgumentException("Player $id not found")
+    }
 }

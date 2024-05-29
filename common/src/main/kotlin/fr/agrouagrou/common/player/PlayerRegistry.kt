@@ -11,6 +11,13 @@ interface PlayerRegistry {
 
     suspend fun unregister(id: UUID)
 
+    fun isPlayerAlive(id: UUID): Boolean
+
+    fun setPlayerAlive(
+        id: UUID,
+        alive: Boolean,
+    )
+
     sealed class Notification {
         data class PlayerRegistered(val player: Player) : Notification()
 
