@@ -1,7 +1,7 @@
 package fr.agrouagrou.common.player
 
 import fr.agrouagrou.common.GameRules
-import fr.agrouagrou.common.state.GameState
+import fr.agrouagrou.common.GameState
 import kotlinx.coroutines.flow.MutableStateFlow
 import java.util.*
 

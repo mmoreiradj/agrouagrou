@@ -1,6 +1,6 @@
 package fr.agrouagrou.common.extensions
 
-import fr.agrouagrou.common.state.GameState
+import fr.agrouagrou.common.GameState
 import fr.agrouagrou.proto.GameStateStatus
 
 fun GameState.toProto() =

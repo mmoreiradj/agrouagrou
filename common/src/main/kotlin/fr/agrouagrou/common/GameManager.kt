@@ -2,7 +2,7 @@ package fr.agrouagrou.common
 
 import fr.agrouagrou.common.player.LocalPlayerRegistry
 import fr.agrouagrou.common.player.PlayerManager
-import fr.agrouagrou.common.state.GameState
+import fr.agrouagrou.common.turn.GameTurn
 import kotlinx.coroutines.flow.MutableStateFlow
 
 class GameManager(private val rules: GameRules) {

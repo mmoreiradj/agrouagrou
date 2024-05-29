@@ -1,4 +1,4 @@
-package fr.agrouagrou.common.state
+package fr.agrouagrou.common
 
 enum class GameState {
     LOOKING_FOR_PLAYERS,
