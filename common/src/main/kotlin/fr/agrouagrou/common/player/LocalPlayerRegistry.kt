@@ -27,15 +27,15 @@ class LocalPlayerRegistry : PlayerRegistry {
         }
     }
 
-    override fun isPlayerAlive(id: UUID): Boolean {
-        return getPlayer(id).alive
+    override fun getPlayerStatus(id: UUID): PlayerStatus {
+        return getPlayer(id).status
     }
 
-    override fun setPlayerAlive(
+    override fun setPlayerStatus(
         id: UUID,
-        alive: Boolean,
+        status: PlayerStatus,
     ) {
-        getPlayer(id).alive = alive
+        getPlayer(id).status = status
     }
 
     private fun getPlayer(id: UUID): Player {

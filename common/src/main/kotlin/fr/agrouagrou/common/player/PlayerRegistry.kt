@@ -11,11 +11,11 @@ interface PlayerRegistry {
 
     suspend fun unregister(id: UUID)
 
-    fun isPlayerAlive(id: UUID): Boolean
+    fun getPlayerStatus(id: UUID): PlayerStatus
 
-    fun setPlayerAlive(
+    fun setPlayerStatus(
         id: UUID,
-        alive: Boolean,
+        status: PlayerStatus,
     )
 
     sealed class Notification {

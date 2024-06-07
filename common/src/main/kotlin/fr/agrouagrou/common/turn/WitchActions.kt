@@ -3,6 +3,7 @@ package fr.agrouagrou.common.turn
 import fr.agrouagrou.common.GameState
 import fr.agrouagrou.common.player.Player
 import fr.agrouagrou.common.player.PlayerManager
+import fr.agrouagrou.common.player.PlayerStatus
 import fr.agrouagrou.common.player.Role
 import kotlinx.coroutines.flow.MutableStateFlow
 import java.util.*
@@ -17,14 +18,14 @@ class WitchActions(
         playerId: String,
         targetId: String,
     ) {
-        val (player, isTargetAlive) = prepareUsingPotion(playerId, targetId)
+        val (player, targetStatus) = prepareUsingPotion(playerId, targetId)
 
-        if (!isTargetAlive) {
-            throw IllegalArgumentException("Target is already dead")
+        if (targetStatus != PlayerStatus.ALIVE) {
+            throw IllegalArgumentException("Target is not alive")
         }
 
         (player.role as Role.Witch).useDeathPotion()
-        playerManager.setPlayerAlive(UUID.fromString(targetId), false)
+        playerManager.setPlayerStatus(UUID.fromString(targetId), PlayerStatus.DYING)
         hasUsedPotion = true
     }
 
@@ -32,21 +33,21 @@ class WitchActions(
         playerId: String,
         targetId: String,
     ) {
-        val (player, isTargetAlive) = prepareUsingPotion(playerId, targetId)
+        val (player, targetStatus) = prepareUsingPotion(playerId, targetId)
 
-        if (isTargetAlive) {
-            throw IllegalArgumentException("Target is already alive")
+        if (targetStatus != PlayerStatus.DYING) {
+            throw IllegalArgumentException("Only a dying player can be revived")
         }
 
         (player.role as Role.Witch).useLifePotion()
-        playerManager.setPlayerAlive(UUID.fromString(targetId), true)
+        playerManager.setPlayerStatus(UUID.fromString(targetId), PlayerStatus.ALIVE)
         hasUsedPotion = true
     }
 
     private fun prepareUsingPotion(
         playerId: String,
         targetId: String,
-    ): Pair<Player, Boolean> {
+    ): Pair<Player, PlayerStatus> {
         val player =
             playerManager.players[UUID.fromString(playerId)]
                 ?: throw IllegalArgumentException("Player not found")
@@ -57,8 +58,8 @@ class WitchActions(
             throw IllegalStateException("Witch has already used her potion")
         }
 
-        val isTargetAlive = playerManager.isPlayerAlive(UUID.fromString(targetId))
+        val playerStatus = playerManager.getPlayerStatus(UUID.fromString(targetId))
 
-        return Pair(player, isTargetAlive)
+        return Pair(player, playerStatus)
     }
 }
