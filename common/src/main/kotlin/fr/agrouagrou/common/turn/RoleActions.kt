@@ -18,4 +18,6 @@ abstract class RoleActions<T : Role>(private val role: KClass<T>, private val va
             throw IllegalArgumentException("This action is not allowed at this time")
         }
     }
+
+    abstract fun nextGameState()
 }

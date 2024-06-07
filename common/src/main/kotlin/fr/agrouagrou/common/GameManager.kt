@@ -29,8 +29,18 @@ class GameManager(private val rules: GameRules) {
 
     private fun nextTurn() {
         val turnNumber = turns.lastOrNull()?.turnNumber ?: 0
-        turns.add(GameTurn(turnNumber + 1, gameState, playerManager))
+        turns.add(GameTurn(turnNumber + 1, gameState, playerManager, rules))
 
         gameState.value = GameState.NIGHT_START
+    }
+
+    fun nextGameState() {
+        when (gameState.value) {
+            GameState.LOOKING_FOR_PLAYERS -> startGame()
+            GameState.NIGHT_START -> gameState.value = GameState.NIGHT_FORTUNE_TELLER
+            GameState.NIGHT_FORTUNE_TELLER -> currentTurn().fortuneTellerActions.nextGameState()
+            GameState.NIGHT_WEREWOLF -> currentTurn().werewolfActions.nextGameState()
+            GameState.NIGHT_WITCH -> currentTurn().witchActions.nextGameState()
+        }
     }
 }

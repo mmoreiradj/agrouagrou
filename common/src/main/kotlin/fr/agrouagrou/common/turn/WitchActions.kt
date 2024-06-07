@@ -62,4 +62,8 @@ class WitchActions(
 
         return Pair(player, playerStatus)
     }
+
+    override fun nextGameState() {
+        TODO("Not yet implemented")
+    }
 }

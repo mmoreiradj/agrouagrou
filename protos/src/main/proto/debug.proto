@@ -19,4 +19,5 @@ message SetGameStateReply {
 service Debug {
   rpc StartGame (google.protobuf.Empty) returns (google.protobuf.Empty) {}
   rpc SetGameState (SetGameStateRequest) returns (SetGameStateReply) {}
+  rpc NextGameState (google.protobuf.Empty) returns (google.protobuf.Empty) {}
 }

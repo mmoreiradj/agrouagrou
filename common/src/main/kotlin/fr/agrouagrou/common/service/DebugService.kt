@@ -22,4 +22,9 @@ class DebugService(private val gameManager: GameManager) : DebugGrpcKt.DebugCoro
             status = gameManager.gameState.value.toProto()
         }
     }
+
+    override suspend fun nextGameState(request: Empty): Empty {
+        gameManager.nextGameState()
+        return Empty.getDefaultInstance()
+    }
 }

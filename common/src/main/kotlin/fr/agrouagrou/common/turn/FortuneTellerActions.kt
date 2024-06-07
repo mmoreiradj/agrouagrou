@@ -33,4 +33,8 @@ class FortuneTellerActions(
         hasRevealed = true
         return target.role
     }
+
+    override fun nextGameState() {
+        gameState.value = GameState.NIGHT_WEREWOLF
+    }
 }
