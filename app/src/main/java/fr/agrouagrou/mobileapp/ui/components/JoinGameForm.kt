@@ -15,6 +15,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -42,11 +43,6 @@ fun JoinGameForm(
             .fillMaxWidth()
             .padding(16.dp),
     ) {
-        Text(
-            text = stringResource(id = R.string.joingame_title),
-            style = MaterialTheme.typography.displayMedium,
-            color = MaterialTheme.colorScheme.primary
-        )
         OutlinedTextField(
             value = username,
             onValueChange = onUsernameChange,
@@ -75,11 +71,12 @@ fun JoinGameForm(
 fun JoinGameFormPreview() {
     var username by remember { mutableStateOf("") }
     var gameCode by remember { mutableStateOf("") }
-    JoinGameForm(username = username,
+    JoinGameForm(
+        username = username,
         gameCode = gameCode,
         onUsernameChange = { username = it },
-        onGameCodeChange = { gameCode = it },
-        onJoinGame = { _, _ ->
-            Log.d("JoinGameFormPreview", "Username: $username, Game code: $gameCode")
-        })
+        onGameCodeChange = { gameCode = it }
+    ) { _, _ ->
+        Log.d("JoinGameFormPreview", "Username: $username, Game code: $gameCode")
+    }
 }
