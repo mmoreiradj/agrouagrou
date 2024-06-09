@@ -7,6 +7,7 @@ import androidx.compose.material3.Button
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
@@ -15,14 +16,16 @@ import androidx.core.content.ContextCompat.startActivity
 import fr.agrouagrou.grpc_server.R
 
 @Composable
-fun GameIDInfo(gameID: String, context: Context) {
+fun GameIDInfo(gameID: String, context: Context, modifier: Modifier = Modifier) {
     val sendIntent = Intent(Intent.ACTION_SEND).apply {
         putExtra(Intent.EXTRA_TEXT, gameID)
         type = "text/plain"
     }
     val shareIntent = Intent.createChooser(sendIntent, null)
 
-    Column {
+    Column(
+        modifier = modifier,
+    ) {
         Text(
             text = stringResource(R.string.waiting_for_other_players),
             color = MaterialTheme.colorScheme.primary

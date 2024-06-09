@@ -14,4 +14,6 @@
     <string name="copy_game_id">Copy game ID</string>
     <string name="waiting_for_other_players">Waiting for other players...</string>
     <string name="your_game_id_is">Your game ID is: %1$s</string>
+    <string name="waiting_for_players">Waiting for Players</string>
+    <string name="join_game">Join Game</string>
 </resources>
