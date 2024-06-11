@@ -1,0 +1,18 @@
+syntax = "proto3";
+import "google/protobuf/empty.proto";
+import "player.proto";
+
+option java_multiple_files = true;
+option java_package = "fr.agrouagrou.proto";
+
+package proto;
+
+// VoteVictim
+message VoteVictimRequest {
+  string playerId = 1;
+  string targetId = 2;
+}
+
+service WerewolfActions {
+  rpc VoteVictim (VoteVictimRequest) returns (google.protobuf.Empty) {}
+}

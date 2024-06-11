@@ -1,7 +1,7 @@
 package fr.agrouagrou.common.service
 
 import com.google.protobuf.Empty
-import fr.agrouagrou.common.player.Player
+import fr.agrouagrou.common.extensions.toProto
 import fr.agrouagrou.common.player.PlayerManager
 import fr.agrouagrou.common.player.PlayerRegistry
 import fr.agrouagrou.proto.PlayerGrpcKt
@@ -12,7 +12,6 @@ import fr.agrouagrou.proto.PlayerRegisterRequest
 import fr.agrouagrou.proto.PlayerReply
 import fr.agrouagrou.proto.PlayerUnregisterRequest
 import fr.agrouagrou.proto.playerNotification
-import fr.agrouagrou.proto.playerReply
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.asFlow
 import kotlinx.coroutines.flow.flow
@@ -57,12 +56,5 @@ class PlayerService(private val playerManager: PlayerManager) : PlayerGrpcKt.Pla
                     },
                 )
             }
-        }
-
-    private fun Player.toProto(): PlayerReply =
-        playerReply {
-            id = this@toProto.id.toString()
-            username = this@toProto.username
-            alive = this@toProto.alive
         }
 }

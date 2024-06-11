@@ -1,0 +1,25 @@
+syntax = "proto3";
+import "google/protobuf/empty.proto";
+import "player.proto";
+
+option java_multiple_files = true;
+option java_package = "fr.agrouagrou.proto";
+
+package proto;
+
+// KillPlayer
+message KillPlayerRequest {
+  string playerId = 1;
+  string targetId = 2;
+}
+
+// RevivePlayer
+message RevivePlayerRequest {
+  string playerId = 1;
+  string targetId = 2;
+}
+
+service WitchActions {
+  rpc KillPlayer (KillPlayerRequest) returns (google.protobuf.Empty) {}
+  rpc RevivePlayer (RevivePlayerRequest) returns (google.protobuf.Empty) {}
+}

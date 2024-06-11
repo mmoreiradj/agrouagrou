@@ -11,6 +11,13 @@ interface PlayerRegistry {
 
     suspend fun unregister(id: UUID)
 
+    fun getPlayerStatus(id: UUID): PlayerStatus
+
+    fun setPlayerStatus(
+        id: UUID,
+        status: PlayerStatus,
+    )
+
     sealed class Notification {
         data class PlayerRegistered(val player: Player) : Notification()
 

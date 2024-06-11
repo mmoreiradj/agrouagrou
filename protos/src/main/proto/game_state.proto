@@ -8,7 +8,10 @@ package proto;
 
 enum GameStateStatus {
   LOOKING_FOR_PLAYERS = 0;
-  STARTING_GAME = 1;
+  NIGHT_START = 1;
+  NIGHT_FORTUNE_TELLER = 2;
+  NIGHT_WEREWOLF = 3;
+  NIGHT_WITCH = 4;
 }
 
 // GetGameState
