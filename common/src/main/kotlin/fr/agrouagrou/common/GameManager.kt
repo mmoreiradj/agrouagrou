@@ -5,7 +5,9 @@ import fr.agrouagrou.common.player.PlayerManager
 import fr.agrouagrou.common.turn.GameTurn
 import kotlinx.coroutines.flow.MutableStateFlow
 
-class GameManager(private val rules: GameRules) {
+class GameManager(
+    private val rules: GameRules,
+) {
     var gameState: MutableStateFlow<GameState> = MutableStateFlow(GameState.LOOKING_FOR_PLAYERS)
     val playerManager = PlayerManager(LocalPlayerRegistry(), gameState, rules)
 
@@ -41,6 +43,11 @@ class GameManager(private val rules: GameRules) {
             GameState.NIGHT_FORTUNE_TELLER -> currentTurn().fortuneTellerActions.nextGameState()
             GameState.NIGHT_WEREWOLF -> currentTurn().werewolfActions.nextGameState()
             GameState.NIGHT_WITCH -> currentTurn().witchActions.nextGameState()
+            GameState.DAY_DEBATE -> gameState.value = GameState.DAY_VOTE
+            GameState.DAY_VOTE -> {
+                currentTurn().villagerActions.nextGameState()
+                nextTurn()
+            }
         }
     }
 }

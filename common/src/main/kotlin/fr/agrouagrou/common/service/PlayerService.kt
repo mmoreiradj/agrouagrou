@@ -17,7 +17,9 @@ import kotlinx.coroutines.flow.asFlow
 import kotlinx.coroutines.flow.flow
 import java.util.*
 
-class PlayerService(private val playerManager: PlayerManager) : PlayerGrpcKt.PlayerCoroutineImplBase() {
+class PlayerService(
+    private val playerManager: PlayerManager,
+) : PlayerGrpcKt.PlayerCoroutineImplBase() {
     override suspend fun register(request: PlayerRegisterRequest): PlayerReply {
         val player = playerManager.register(request.username)
         println("Registering new player: $player")
@@ -32,7 +34,10 @@ class PlayerService(private val playerManager: PlayerManager) : PlayerGrpcKt.Pla
         return Empty.getDefaultInstance()
     }
 
-    override fun getPlayers(request: Empty): Flow<PlayerReply> = playerManager.players.values.map { it.toProto() }.asFlow()
+    override fun getPlayers(request: Empty): Flow<PlayerReply> =
+        playerManager.players.values
+            .map { it.toProto() }
+            .asFlow()
 
     override fun streamPlayerNotifications(request: Empty): Flow<PlayerNotification> =
         flow {

@@ -11,7 +11,7 @@ class WerewolfActions(
     private val gameState: MutableStateFlow<GameState>,
     private val playerManager: PlayerManager,
     private val werewolfCount: Int,
-) : RoleActions<Role.Werewolf>(Role.Werewolf::class, GameState.NIGHT_WEREWOLF) {
+) : SpecificRoleActions<Role.Werewolf>(Role.Werewolf::class, GameState.NIGHT_WEREWOLF) {
     private val votes = mutableMapOf<UUID, UUID>()
 
     fun voteVictim(
@@ -37,11 +37,15 @@ class WerewolfActions(
         }
 
         val mostVotedPlayer =
-            votes.values.groupingBy { it }.eachCount().maxByOrNull { it.value }?.key ?: throw IllegalStateException(
+            votes.values
+                .groupingBy { it }
+                .eachCount()
+                .maxByOrNull { it.value }
+                ?.key ?: throw IllegalStateException(
                 "No votes",
             )
-        playerManager.setPlayerStatus(mostVotedPlayer, PlayerStatus.DYING)
 
+        playerManager.setPlayerStatus(mostVotedPlayer, PlayerStatus.DYING)
         gameState.value = GameState.NIGHT_WITCH
     }
 }

@@ -2,20 +2,21 @@ package fr.agrouagrou.common.turn
 
 import fr.agrouagrou.common.GameState
 import fr.agrouagrou.common.player.Player
-import fr.agrouagrou.common.player.Role
-import kotlin.reflect.KClass
+import fr.agrouagrou.common.player.PlayerStatus
 
-abstract class RoleActions<T : Role>(private val role: KClass<T>, private val validState: GameState) {
-    fun validateAction(
+abstract class RoleActions(
+    private val validState: GameState,
+) {
+    open fun validateAction(
         player: Player,
         gameState: GameState,
     ) {
-        if (player.role::class != role) {
-            throw IllegalArgumentException("Player does not have the required role")
-        }
-
         if (gameState != validState) {
             throw IllegalArgumentException("This action is not allowed at this time")
+        }
+
+        if (player.status == PlayerStatus.DEAD) {
+            throw IllegalArgumentException("Dead players cannot perform actions")
         }
     }
 

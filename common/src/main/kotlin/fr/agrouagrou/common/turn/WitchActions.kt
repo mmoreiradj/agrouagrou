@@ -11,7 +11,7 @@ import java.util.*
 class WitchActions(
     private val gameState: MutableStateFlow<GameState>,
     private val playerManager: PlayerManager,
-) : RoleActions<Role.Witch>(Role.Witch::class, GameState.NIGHT_WITCH) {
+) : SpecificRoleActions<Role.Witch>(Role.Witch::class, GameState.NIGHT_WITCH) {
     private var hasUsedPotion = false
 
     fun killPlayer(
@@ -64,6 +64,7 @@ class WitchActions(
     }
 
     override fun nextGameState() {
-        TODO("Not yet implemented")
+        playerManager.finishOffDyingPlayers()
+        gameState.value = GameState.DAY_DEBATE
     }
 }

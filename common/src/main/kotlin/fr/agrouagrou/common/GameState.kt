@@ -6,4 +6,6 @@ enum class GameState {
     NIGHT_FORTUNE_TELLER,
     NIGHT_WEREWOLF,
     NIGHT_WITCH,
+    DAY_DEBATE,
+    DAY_VOTE,
 }

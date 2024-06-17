@@ -8,11 +8,11 @@ option java_package = "fr.agrouagrou.proto";
 package proto;
 
 // VoteVictim
-message VoteWerewolfVictimRequest {
+message VoteVillagerVictimRequest {
   string playerId = 1;
   string targetId = 2;
 }
 
-service WerewolfActions {
-  rpc VoteVictim (VoteWerewolfVictimRequest) returns (google.protobuf.Empty) {}
+service VillagerActions {
+  rpc VoteVictim (VoteVillagerVictimRequest) returns (google.protobuf.Empty) {}
 }

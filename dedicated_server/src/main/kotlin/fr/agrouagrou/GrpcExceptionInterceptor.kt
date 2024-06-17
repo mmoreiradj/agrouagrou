@@ -41,7 +41,5 @@ class GrpcExceptionInterceptor : ServerInterceptor {
         call: ServerCall<ReqT, RespT>,
         headers: Metadata,
         next: ServerCallHandler<ReqT, RespT>,
-    ): ServerCall.Listener<ReqT> {
-        return next.startCall(ExceptionTranslatingServerCall(call), headers)
-    }
+    ): ServerCall.Listener<ReqT> = next.startCall(ExceptionTranslatingServerCall(call), headers)
 }

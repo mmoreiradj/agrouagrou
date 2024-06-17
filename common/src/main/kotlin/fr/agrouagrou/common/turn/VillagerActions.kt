@@ -2,39 +2,47 @@ package fr.agrouagrou.common.turn
 
 import fr.agrouagrou.common.GameState
 import fr.agrouagrou.common.player.PlayerManager
-import fr.agrouagrou.common.player.Role
+import fr.agrouagrou.common.player.PlayerStatus
 import kotlinx.coroutines.flow.MutableStateFlow
 import java.util.*
 
-class FortuneTellerActions(
+class VillagerActions(
     private val gameState: MutableStateFlow<GameState>,
     private val playerManager: PlayerManager,
-) : SpecificRoleActions<Role.FortuneTeller>(Role.FortuneTeller::class, GameState.NIGHT_FORTUNE_TELLER) {
-    private var hasRevealed = false
+) : RoleActions(GameState.DAY_VOTE) {
+    private val votes = mutableMapOf<UUID, UUID>()
 
-    fun revealRole(
+    fun voteVictim(
         playerId: String,
         targetId: String,
-    ): Role {
+    ) {
         val player =
             playerManager.players[UUID.fromString(playerId)]
                 ?: throw IllegalArgumentException("Player not found")
 
         validateAction(player, gameState.value)
 
-        if (hasRevealed) {
-            throw IllegalStateException("Fortune teller has already revealed")
-        }
-
         val target =
             playerManager.players[UUID.fromString(targetId)]
                 ?: throw IllegalArgumentException("Target not found")
 
-        hasRevealed = true
-        return target.role
+        votes[player.id] = target.id
     }
 
     override fun nextGameState() {
-        gameState.value = GameState.NIGHT_WEREWOLF
+        if (votes.size < playerManager.getAlivePlayerCount()) {
+            throw IllegalStateException("Not all players have voted")
+        }
+
+        val mostVotedPlayer =
+            votes.values
+                .groupingBy { it }
+                .eachCount()
+                .maxByOrNull { it.value }
+                ?.key ?: throw IllegalStateException(
+                "No votes",
+            )
+
+        playerManager.setPlayerStatus(mostVotedPlayer, PlayerStatus.DEAD)
     }
 }
