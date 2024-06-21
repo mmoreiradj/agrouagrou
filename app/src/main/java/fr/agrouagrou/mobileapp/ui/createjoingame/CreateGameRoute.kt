@@ -11,6 +11,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import fr.agrouagrou.common.player.Player
+import fr.agrouagrou.common.player.PlayerStatus
 import fr.agrouagrou.common.player.State
 import fr.agrouagrou.grpc_server.R
 import fr.agrouagrou.mobileapp.ui.components.GameIDInfo
@@ -31,9 +32,9 @@ fun CreateGameRoute() {
         )
         GameIDInfo(gameID, context, modifier = Modifier.padding(bottom = 16.dp))
         PlayerList(players = listOf(
-            Player("Player 1", UUID.randomUUID(), State.ALIVE),
-            Player("Player 2", UUID.randomUUID(), State.ALIVE),
-            Player("Player 3", UUID.randomUUID(), State.ALIVE),
+            Player("Player 1", UUID.randomUUID(), PlayerStatus.ALIVE),
+            Player("Player 2", UUID.randomUUID(), PlayerStatus.ALIVE),
+            Player("Player 3", UUID.randomUUID(), PlayerStatus.ALIVE),
         ))
     }
 }
