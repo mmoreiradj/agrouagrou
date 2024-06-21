@@ -1,4 +1,4 @@
-package fr.agrouagrou.mobileapp.ui.components
+package fr.agrouagrou.mobileapp.ui.gamephases
 
 import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
