@@ -89,9 +89,10 @@ class PlayerListPreviewProvider : PreviewParameterProvider<List<Player>> {
             Player(username = "Alice"),
         ),
         listOf(
-            Player(username = "Bob", role = Role.VILLAGER),
-            Player(username = "Eve", role = Role.WEREWOLF),
-            Player(username = "Matéo", role = Role.VILLAGER),
+            Player(username = "Bob", role = Role.Villager),
+            Player(username = "Eve", role = Role.Werewolf),
+            Player(username = "Matéo", role = Role.FortuneTeller),
+            Player(username = "Léa", role = Role.Witch())
         ),
     )
 }
