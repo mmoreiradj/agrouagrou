@@ -1,6 +1,7 @@
 package fr.agrouagrou.mobileapp.ui.createjoingame
 
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -12,7 +13,6 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import fr.agrouagrou.common.player.Player
 import fr.agrouagrou.common.player.PlayerStatus
-import fr.agrouagrou.common.player.State
 import fr.agrouagrou.grpc_server.R
 import fr.agrouagrou.mobileapp.ui.components.GameIDInfo
 import fr.agrouagrou.mobileapp.ui.components.PlayerList
@@ -24,18 +24,26 @@ fun CreateGameRoute() {
     val context = LocalContext.current
 
     Column {
-        Text(
-            text = stringResource(R.string.waiting_for_players),
-            style = MaterialTheme.typography.headlineLarge,
-            color = MaterialTheme.colorScheme.primary,
-            modifier = Modifier.padding(bottom = 16.dp)
+        Column(
+            Modifier
+                .fillMaxWidth()
+                .padding(top = 42.dp, start = 16.dp, end = 16.dp),
+        ) {
+            Text(
+                text = stringResource(R.string.waiting_for_players),
+                style = MaterialTheme.typography.headlineLarge,
+                color = MaterialTheme.colorScheme.primary,
+                modifier = Modifier.padding(bottom = 16.dp)
+            )
+            GameIDInfo(gameID, context, modifier = Modifier.padding(bottom = 16.dp))
+        }
+        PlayerList(
+            players = listOf(
+                Player("Player 1", UUID.randomUUID(), PlayerStatus.ALIVE),
+                Player("Player 2", UUID.randomUUID(), PlayerStatus.ALIVE),
+                Player("Player 3", UUID.randomUUID(), PlayerStatus.ALIVE),
+            )
         )
-        GameIDInfo(gameID, context, modifier = Modifier.padding(bottom = 16.dp))
-        PlayerList(players = listOf(
-            Player("Player 1", UUID.randomUUID(), PlayerStatus.ALIVE),
-            Player("Player 2", UUID.randomUUID(), PlayerStatus.ALIVE),
-            Player("Player 3", UUID.randomUUID(), PlayerStatus.ALIVE),
-        ))
     }
 }
 
