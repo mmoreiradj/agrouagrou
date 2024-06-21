@@ -4,6 +4,7 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
+import androidx.compose.material3.Text
 import androidx.lifecycle.ViewModel
 import androidx.navigation.compose.rememberNavController
 import fr.agrouagrou.mobileapp.ui.theme.AppTheme
