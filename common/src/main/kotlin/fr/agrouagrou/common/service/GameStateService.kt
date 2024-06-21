@@ -11,7 +11,9 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.flow
 
-class GameStateService(private val gameManager: GameManager) : GameStateGrpcKt.GameStateCoroutineImplBase() {
+class GameStateService(
+    private val gameManager: GameManager,
+) : GameStateGrpcKt.GameStateCoroutineImplBase() {
     override suspend fun getGameState(request: Empty) =
         getGameStateReply {
             status = gameManager.gameState.value.toProto()

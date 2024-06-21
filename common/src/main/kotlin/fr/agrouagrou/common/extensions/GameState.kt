@@ -10,6 +10,8 @@ fun GameState.toProto() =
         GameState.NIGHT_FORTUNE_TELLER -> GameStateStatus.NIGHT_FORTUNE_TELLER
         GameState.NIGHT_WEREWOLF -> GameStateStatus.NIGHT_WEREWOLF
         GameState.NIGHT_WITCH -> GameStateStatus.NIGHT_WITCH
+        GameState.DAY_DEBATE -> GameStateStatus.DAY_DEBATE
+        GameState.DAY_VOTE -> GameStateStatus.DAY_VOTE
     }
 
 fun GameStateStatus.toGameState() =
@@ -19,5 +21,7 @@ fun GameStateStatus.toGameState() =
         GameStateStatus.NIGHT_FORTUNE_TELLER -> GameState.NIGHT_FORTUNE_TELLER
         GameStateStatus.NIGHT_WEREWOLF -> GameState.NIGHT_WEREWOLF
         GameStateStatus.NIGHT_WITCH -> GameState.NIGHT_WITCH
+        GameStateStatus.DAY_DEBATE -> GameState.DAY_DEBATE
+        GameStateStatus.DAY_VOTE -> GameState.DAY_VOTE
         GameStateStatus.UNRECOGNIZED -> throw IllegalArgumentException("Unrecognized game state")
     }

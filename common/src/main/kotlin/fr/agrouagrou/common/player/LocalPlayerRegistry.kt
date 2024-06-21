@@ -27,9 +27,7 @@ class LocalPlayerRegistry : PlayerRegistry {
         }
     }
 
-    override fun getPlayerStatus(id: UUID): PlayerStatus {
-        return getPlayer(id).status
-    }
+    override fun getPlayerStatus(id: UUID): PlayerStatus = getPlayer(id).status
 
     override fun setPlayerStatus(
         id: UUID,
@@ -38,7 +36,13 @@ class LocalPlayerRegistry : PlayerRegistry {
         getPlayer(id).status = status
     }
 
-    private fun getPlayer(id: UUID): Player {
-        return _players[id] ?: throw IllegalArgumentException("Player $id not found")
+    override fun finishOffDyingPlayers() {
+        _players.values
+            .filter { it.status == PlayerStatus.DYING }
+            .forEach { it.status = PlayerStatus.DEAD }
     }
+
+    override fun getAlivePlayerCount(): Int = _players.values.count { it.status == PlayerStatus.ALIVE }
+
+    private fun getPlayer(id: UUID): Player = _players[id] ?: throw IllegalArgumentException("Player $id not found")
 }

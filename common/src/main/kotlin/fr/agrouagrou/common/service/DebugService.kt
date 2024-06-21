@@ -9,7 +9,9 @@ import fr.agrouagrou.proto.SetGameStateReply
 import fr.agrouagrou.proto.SetGameStateRequest
 import fr.agrouagrou.proto.setGameStateReply
 
-class DebugService(private val gameManager: GameManager) : DebugGrpcKt.DebugCoroutineImplBase() {
+class DebugService(
+    private val gameManager: GameManager,
+) : DebugGrpcKt.DebugCoroutineImplBase() {
     override suspend fun startGame(request: Empty): Empty {
         gameManager.startGame()
         return Empty.getDefaultInstance()

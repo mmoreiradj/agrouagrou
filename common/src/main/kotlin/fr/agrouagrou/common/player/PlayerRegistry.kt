@@ -18,9 +18,17 @@ interface PlayerRegistry {
         status: PlayerStatus,
     )
 
-    sealed class Notification {
-        data class PlayerRegistered(val player: Player) : Notification()
+    fun finishOffDyingPlayers()
 
-        data class PlayerUnregistered(val id: UUID) : Notification()
+    fun getAlivePlayerCount(): Int
+
+    sealed class Notification {
+        data class PlayerRegistered(
+            val player: Player,
+        ) : Notification()
+
+        data class PlayerUnregistered(
+            val id: UUID,
+        ) : Notification()
     }
 }

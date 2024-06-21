@@ -12,6 +12,8 @@ enum GameStateStatus {
   NIGHT_FORTUNE_TELLER = 2;
   NIGHT_WEREWOLF = 3;
   NIGHT_WITCH = 4;
+  DAY_DEBATE = 5;
+  DAY_VOTE = 6;
 }
 
 // GetGameState

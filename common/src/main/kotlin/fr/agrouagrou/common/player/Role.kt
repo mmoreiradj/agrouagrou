@@ -5,7 +5,10 @@ sealed class Role {
 
     data object Werewolf : Role()
 
-    data class Witch(var deathPotion: Int = 1, var lifePotion: Int = 1) : Role() {
+    data class Witch(
+        var deathPotion: Int = 1,
+        var lifePotion: Int = 1,
+    ) : Role() {
         fun useDeathPotion() {
             if (deathPotion <= 0) {
                 throw IllegalStateException("Witch has no more death potion")
