@@ -1,3 +1,19 @@
 <resources>
-    <string name="app_name">grpc_server</string>
+    <string name="app_name">AgrouAgrou</string>
+    <string name="simple_villager_description">A simple villager</string>
+    <string name="simple_villager_name">Simple Villager</string>
+    <string name="home">Home</string>
+    <string name="settings">Settings</string>
+    <string name="home_title">No Active Game</string>
+    <string name="home_create_game">Create</string>
+    <string name="home_join_game">Join</string>
+    <string name="joingame_title">Join Game</string>
+    <string name="joingame_form_username">Username</string>
+    <string name="joingame_form_game_code">Game Code</string>
+    <string name="joingame_form_join_game">Join</string>
+    <string name="copy_game_id">Copy game ID</string>
+    <string name="waiting_for_other_players">Waiting for other players...</string>
+    <string name="your_game_id_is">Your game ID is: %1$s</string>
+    <string name="waiting_for_players">Waiting for Players</string>
+    <string name="join_game">Join Game</string>
 </resources>

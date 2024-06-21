@@ -1,6 +1,6 @@
 package fr.agrouagrou.common.player
 
-import java.util.*
+import java.util.UUID
 
 data class Player(
     val username: String,
