@@ -4,6 +4,8 @@ import android.util.Log
 import androidx.lifecycle.ViewModel
 import fr.agrouagrou.common.GameManager
 import fr.agrouagrou.common.GameRules
+import fr.agrouagrou.common.player.Player
+import fr.agrouagrou.common.player.PlayerRegistry.Notification
 import fr.agrouagrou.common.service.DebugService
 import fr.agrouagrou.common.service.GameStateService
 import fr.agrouagrou.common.service.PlayerService
@@ -12,8 +14,6 @@ import fr.agrouagrou.common.service.roles.WerewolfService
 import fr.agrouagrou.common.service.roles.WitchService
 import io.grpc.Grpc
 import io.grpc.InsecureServerCredentials
-import io.grpc.Server
-import io.grpc.ServerBuilder
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -42,7 +42,18 @@ class GameViewModel : ViewModel() {
         )
     }
 
-    fun joinGame() {
-        
+    suspend fun watchForPlayerUpdates(cb: (List<Player>) -> Unit) {
+        gameManager.value.playerManager.notifications.collect { notification ->
+            when (notification) {
+                is Notification.PlayerRegistered -> {
+                    Log.d("GameViewModel", "Player registered: ${notification.player}")
+                    cb(gameManager.value.playerManager.players.values.toList())
+                }
+                is Notification.PlayerUnregistered -> {
+                    Log.d("GameViewModel", "Player unregistered: ${notification.id}")
+                    cb(gameManager.value.playerManager.players.values.toList())
+                }
+            }
+        }
     }
 }

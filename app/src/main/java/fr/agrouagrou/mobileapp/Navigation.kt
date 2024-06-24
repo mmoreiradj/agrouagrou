@@ -41,7 +41,7 @@ fun AgrouAgrouNavHost(
         }
 
         composable(Destinations.CREATE_GAME) {
-            CreateGameRoute()
+            CreateGameRoute(gameViewModel)
         }
 
         composable(Destinations.JOIN_GAME) {
