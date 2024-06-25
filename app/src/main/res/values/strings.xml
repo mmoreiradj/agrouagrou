@@ -37,4 +37,8 @@
     <string name="fortune_teller_name">Fortune Teller</string>
     <string name="fortune_teller_description">Each night, reveal the card of another player</string>
     <string name="night_screen">It\'s the night ! Turn your phone upside down.</string>
+    <string name="day_debate">Debate before the vote !</string>
+    <string name="day_vote">Make a choice !</string>
+    <string name="you_are_dead">You died ! You can leave the game</string>
+    <string name="exit_game">Quit Game</string>
 </resources>
