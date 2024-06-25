@@ -18,11 +18,14 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import fr.agrouagrou.grpc_server.R
 import fr.agrouagrou.mobileapp.ui.common.GameViewModel
+import fr.agrouagrou.mobileapp.ui.common.extensions.toLabel
 import fr.agrouagrou.mobileapp.ui.components.PlayerList
 
 @Composable
 fun GamePhaseGameMasterRoute(gameViewModel: GameViewModel) {
     val gameManager by gameViewModel.gameManager.collectAsState()
+    val gameState by gameManager.gameState.collectAsState()
+
     var players by remember { mutableStateOf(gameManager.playerManager.players.values.toList()) }
     var canStartGame by remember { mutableStateOf(gameManager.canStartGame()) }
     LaunchedEffect(Unit) {
@@ -53,6 +56,8 @@ fun GamePhaseGameMasterRoute(gameViewModel: GameViewModel) {
                 text = stringResource(R.string.players_list),
                 style = MaterialTheme.typography.titleLarge
             )
+                    color = MaterialTheme.colorScheme.primary,
+                    text = "${stringResource(R.string.game_status)} ${stringResource(gameState.toLabel())}",
             PlayerList(players)
         }
     }

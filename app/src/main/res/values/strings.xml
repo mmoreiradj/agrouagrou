@@ -20,4 +20,11 @@
     <string name="you_are_gamemaster">You are the Game Master</string>
     <string name="game_status">Status:</string>
     <string name="players_list">Players:</string>
+    <string name="gamestate_looking_for_players">Looking for Players</string>
+    <string name="gamestate_night_start">Night start</string>
+    <string name="gamestate_night_fortune_teller">Fortune Teller\'s turn</string>
+    <string name="gamestate_night_werewolf">Werewolf\'s turn</string>
+    <string name="gamestate_night_witch">Witch\'s turn</string>
+    <string name="gamestate_day_debate">Day\'s debate</string>
+    <string name="gamestate_day_vote">Day\'s vote</string>
 </resources>
