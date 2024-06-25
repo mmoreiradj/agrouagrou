@@ -8,7 +8,7 @@ import fr.agrouagrou.common.GameRules
 
 class DedicatedServerCli : CliktCommand() {
     private val port by option(help = "Port to listen on").int().default(50051)
-    private val minPlayers by option(help = "Minimum number of players to start the game").int().default(8)
+    private val minPlayers by option(help = "Minimum number of players to start the game").int().default(5)
     private val werewolfCount by option(help = "Number of werewolves in the game").int().default(2)
 
     override fun run() {

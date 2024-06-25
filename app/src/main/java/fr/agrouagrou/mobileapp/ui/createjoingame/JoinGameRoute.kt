@@ -36,10 +36,9 @@ suspend fun testConnectivity(ip: String, port: Int, username: String) {
 }
 
 @Composable
-fun JoinGameRoute() {
+fun JoinGameRoute(onJoinGame: (String, String) -> Unit) {
     val username = remember { mutableStateOf("") }
     val gameCode = remember { mutableStateOf("") }
-    val scope = rememberCoroutineScope()
 
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
@@ -56,27 +55,7 @@ fun JoinGameRoute() {
             gameCode = gameCode.value,
             onUsernameChange = { username.value = it },
             onGameCodeChange = { gameCode.value = it },
-            onJoinGame = { username, gameCode ->
-                val ipPort = if (BuildConfig.DEBUG) {
-                    Pair("10.0.2.2", 50051)
-                } else {
-                    IpPortEncDec.decodeIpPort(gameCode)
-                }
-                Log.d("JoinGameRoute", "Decoded IP and port: $ipPort")
-                if (ipPort != null) {
-                    scope.launch {
-                        testConnectivity("10.0.2.2", ipPort.second, username)
-                    }
-                }
-            }
+            onJoinGame
         )
     }
 }
-
-/*
-@Preview
-@Composable
-fun JoinGameRoutePreview() {
-    JoinGameRoute(gameUiState)
-}
-*/

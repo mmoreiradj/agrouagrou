@@ -28,4 +28,13 @@
     <string name="gamestate_day_debate">Day\'s debate</string>
     <string name="gamestate_day_vote">Day\'s vote</string>
     <string name="next_turn">Next turn</string>
+    <string name="tap_to_reveal_your_role">Tap to reveal your role</string>
+    <string name="your_role_is">"Your role is "</string>
+    <string name="werewolf_name">Werewolf</string>
+    <string name="werewolf_description">Win by killing all the villagers</string>
+    <string name="witch_name">Witch</string>
+    <string name="witch_description">Win with the other villagers, use potions to kill or save others</string>
+    <string name="fortune_teller_name">Fortune Teller</string>
+    <string name="fortune_teller_description">Each night, reveal the card of another player</string>
+    <string name="night_screen">It\'s the night ! Turn your phone upside down.</string>
 </resources>

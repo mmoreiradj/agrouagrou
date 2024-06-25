@@ -6,6 +6,7 @@ import fr.agrouagrou.common.player.Role
 import fr.agrouagrou.proto.PlayerReply
 import fr.agrouagrou.proto.PlayerRole
 import fr.agrouagrou.proto.playerReply
+import java.util.UUID
 import fr.agrouagrou.proto.PlayerStatus as PlayerStatusProto
 
 fun Player.toProto(): PlayerReply =
