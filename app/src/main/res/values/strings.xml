@@ -16,4 +16,5 @@
     <string name="your_game_id_is">Your game ID is: %1$s</string>
     <string name="waiting_for_players">Waiting for Players</string>
     <string name="join_game">Join Game</string>
+    <string name="start_game">Start Game</string>
 </resources>

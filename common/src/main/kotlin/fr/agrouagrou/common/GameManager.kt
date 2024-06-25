@@ -24,6 +24,9 @@ class GameManager(
         nextTurn()
     }
 
+    fun canStartGame(): Boolean =
+        gameState.value == GameState.LOOKING_FOR_PLAYERS && playerManager.players.size >= rules.minPlayers
+
     fun currentTurn(): GameTurn {
         val currentTurn = turns.lastOrNull() ?: throw IllegalStateException("Game has not started yet")
         return currentTurn
