@@ -24,11 +24,10 @@ object Destinations {
     const val HOME = "home"
     const val CREATE_GAME = "create-game"
     const val JOIN_GAME = "join-game"
-    const val GAME_PHASE = "game-phase"
-    const val WAITING_ROOM = "waiting-room"
+    const val CLIENT_GAME_PHASE = "game-phase"
 }
 
-fun handleJoinGame(username: String, gameCode: String, navController: NavHostController) {
+fun handleJoinGame(gameCode: String, navController: NavHostController) {
     val ipPort = if (BuildConfig.DEBUG) {
         Pair("10.0.2.2", 50051)
     } else {
@@ -36,7 +35,7 @@ fun handleJoinGame(username: String, gameCode: String, navController: NavHostCon
     }
     Log.d("JoinGameRoute", "Decoded IP and port: $ipPort")
     if (ipPort != null) {
-        navController.navigate(Destinations.WAITING_ROOM)
+        navController.navigate(Destinations.CLIENT_GAME_PHASE)
     } else {
         // TODO: Handle error
         Log.e("JoinGameRoute", "Failed to decode IP and port")
@@ -48,13 +47,13 @@ fun AgrouAgrouNavHost(
     navController: NavHostController = rememberNavController(),
 ) {
     val gameViewModel = GameViewModel()
-    val gameUiState by gameViewModel.gameManager.collectAsState()
 
     val channel = remember {
         ManagedChannelBuilder.forAddress("10.0.2.2", 50051).usePlaintext().build()
     }
 
     val clientGameViewModel = remember { ClientGameViewModel(channel) }
+    val gameState by clientGameViewModel.flowGameState.collectAsState()
 
     val clientPlayerViewModel = remember { ClientPlayerViewModel(channel, "username") }
 
@@ -84,12 +83,12 @@ fun AgrouAgrouNavHost(
 
         composable(Destinations.JOIN_GAME) {
             JoinGameRoute(
-                onJoinGame = { username, gameCode -> handleJoinGame(username, gameCode, navController) }
+                onJoinGame = { username, gameCode -> handleJoinGame(username, navController) }
             )
         }
 
-        composable(Destinations.WAITING_ROOM) {
-            GameRunningRoute(channel, clientGameViewModel, clientPlayerViewModel)
+        composable(Destinations.CLIENT_GAME_PHASE) {
+            GameRunningRoute(channel, gameState, clientPlayerViewModel)
         }
     }
 }
