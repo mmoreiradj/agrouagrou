@@ -4,7 +4,12 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.rounded.PlayArrow
+import androidx.compose.material3.ExtendedFloatingActionButton
+import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -35,29 +40,40 @@ fun GamePhaseGameMasterRoute(gameViewModel: GameViewModel) {
         }
     }
 
-    Column(Modifier.padding(top = 48.dp)) {
-        Text(
-            text = stringResource(R.string.you_are_gamemaster),
-            style = MaterialTheme.typography.headlineLarge,
-            color = MaterialTheme.colorScheme.primary,
-            modifier = Modifier.padding(start = 16.dp, bottom = 8.dp)
-        )
-        Text(
-            text = "${stringResource(R.string.game_status)} ${gameManager.gameState.value}",
-            style = MaterialTheme.typography.titleLarge,
-            modifier = Modifier.padding(start = 16.dp, bottom = 16.dp)
-        )
+    Scaffold(
+        floatingActionButton = {
+            ExtendedFloatingActionButton(
+                onClick = {
+                    // will crash when werewolf/player's turn to vote
+                    gameManager.nextGameState()
+                },
+                icon = { Icon(Icons.Rounded.PlayArrow, "Next turn button") },
+                text = { Text(stringResource(R.string.next_turn)) }
+            )
+        }
+    ) { innerPadding ->
         Column(
             Modifier
-                .padding(start = 16.dp, bottom = 16.dp)
+                .padding(innerPadding)
                 .verticalScroll(rememberScrollState())
         ) {
-            Text(
-                text = stringResource(R.string.players_list),
-                style = MaterialTheme.typography.titleLarge
-            )
+            Column(Modifier.padding(start = 16.dp)) {
+                Text(
+                    text = stringResource(R.string.you_are_gamemaster),
+                    style = MaterialTheme.typography.headlineLarge,
                     color = MaterialTheme.colorScheme.primary,
+                    modifier = Modifier.padding(bottom = 12.dp)
+                )
+                Text(
                     text = "${stringResource(R.string.game_status)} ${stringResource(gameState.toLabel())}",
+                    style = MaterialTheme.typography.titleLarge,
+                    modifier = Modifier.padding(bottom = 12.dp)
+                )
+                Text(
+                    text = stringResource(R.string.players_list),
+                    style = MaterialTheme.typography.titleLarge,
+                )
+            }
             PlayerList(players)
         }
     }

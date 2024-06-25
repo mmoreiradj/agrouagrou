@@ -27,4 +27,5 @@
     <string name="gamestate_night_witch">Witch\'s turn</string>
     <string name="gamestate_day_debate">Day\'s debate</string>
     <string name="gamestate_day_vote">Day\'s vote</string>
+    <string name="next_turn">Next turn</string>
 </resources>
