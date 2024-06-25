@@ -1,22 +1,46 @@
 package fr.agrouagrou.mobileapp
 
+import android.util.Log
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.remember
 import androidx.navigation.compose.NavHost
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import fr.agrouagrou.grpc_server.BuildConfig
+import fr.agrouagrou.mobileapp.ui.common.ClientGameViewModel
+import fr.agrouagrou.mobileapp.ui.common.ClientPlayerViewModel
 import fr.agrouagrou.mobileapp.ui.common.GameViewModel
 import fr.agrouagrou.mobileapp.ui.createjoingame.CreateGameRoute
 import fr.agrouagrou.mobileapp.ui.createjoingame.HomeRoute
 import fr.agrouagrou.mobileapp.ui.createjoingame.JoinGameRoute
+import fr.agrouagrou.mobileapp.ui.gameroutes.GameRunningRoute
+import io.grpc.ManagedChannelBuilder
 
 object Destinations {
     const val HOME = "home"
     const val CREATE_GAME = "create-game"
     const val JOIN_GAME = "join-game"
     const val GAME_PHASE = "game-phase"
+    const val WAITING_ROOM = "waiting-room"
+}
+
+fun handleJoinGame(username: String, gameCode: String, navController: NavHostController) {
+    val ipPort = if (BuildConfig.DEBUG) {
+        Pair("10.0.2.2", 50051)
+    } else {
+        IpPortEncDec.decodeIpPort(gameCode)
+    }
+    Log.d("JoinGameRoute", "Decoded IP and port: $ipPort")
+    if (ipPort != null) {
+        navController.navigate(Destinations.WAITING_ROOM)
+    } else {
+        // TODO: Handle error
+        Log.e("JoinGameRoute", "Failed to decode IP and port")
+    }
 }
 
 @Composable
@@ -26,6 +50,20 @@ fun AgrouAgrouNavHost(
     val gameViewModel = GameViewModel()
     val gameUiState by gameViewModel.gameManager.collectAsState()
 
+    val channel = remember {
+        ManagedChannelBuilder.forAddress("10.0.2.2", 50051).usePlaintext().build()
+    }
+
+    val clientGameViewModel = remember { ClientGameViewModel(channel) }
+
+    val clientPlayerViewModel = remember { ClientPlayerViewModel(channel, "username") }
+
+    DisposableEffect(Unit) {
+        onDispose {
+            channel.shutdown()
+        }
+    }
+
     NavHost(
         navController = navController,
         startDestination = Destinations.HOME
@@ -34,7 +72,7 @@ fun AgrouAgrouNavHost(
             HomeRoute(
                 onCreateGame = {
                     gameViewModel.createGame()
-                    navController.navigate(Destinations.CREATE_GAME);
+                    navController.navigate(Destinations.CREATE_GAME)
                 },
                 onJoinGame = { navController.navigate(Destinations.JOIN_GAME) }
             )
@@ -45,11 +83,13 @@ fun AgrouAgrouNavHost(
         }
 
         composable(Destinations.JOIN_GAME) {
-            JoinGameRoute()
+            JoinGameRoute(
+                onJoinGame = { username, gameCode -> handleJoinGame(username, gameCode, navController) }
+            )
         }
 
-        composable(Destinations.GAME_PHASE) {
-            // GamePhaseRoute()
+        composable(Destinations.WAITING_ROOM) {
+            GameRunningRoute(channel, clientGameViewModel, clientPlayerViewModel)
         }
     }
 }

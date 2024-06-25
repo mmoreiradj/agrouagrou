@@ -17,7 +17,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.unit.dp
 import fr.agrouagrou.grpc_server.R
-import fr.agrouagrou.mobileapp.ui.gamephases.Card
+import fr.agrouagrou.mobileapp.ui.data.Card
 import fr.agrouagrou.mobileapp.ui.gamephases.CardPreviewProvider
 import fr.agrouagrou.mobileapp.ui.gamephases.CardView
 
