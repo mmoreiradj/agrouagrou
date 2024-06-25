@@ -1,5 +1,6 @@
 package fr.agrouagrou.mobileapp
 
+import android.util.Log
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
@@ -45,7 +46,14 @@ fun AgrouAgrouNavHost(
         composable(Destinations.CREATE_GAME) {
             CreateGameRoute(
                 gameViewModel,
-                onStartGame = { navController.navigate(Destinations.GAME_PHASE_GAMEMASTER) }
+                onStartGame = {
+                    try {
+                        gameViewModel.gameManager.value.startGame()
+                        navController.navigate(Destinations.GAME_PHASE_GAMEMASTER)
+                    } catch (e: IllegalStateException) {
+                        Log.e("Navigation", "Could not start game: $e")
+                    }
+                }
             )
         }
 
@@ -54,7 +62,7 @@ fun AgrouAgrouNavHost(
         }
 
         composable(Destinations.GAME_PHASE_GAMEMASTER) {
-            GamePhaseGameMasterRoute()
+            GamePhaseGameMasterRoute(gameViewModel)
         }
 
         composable(Destinations.GAME_PHASE) {

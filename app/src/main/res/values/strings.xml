@@ -18,4 +18,6 @@
     <string name="join_game">Join Game</string>
     <string name="start_game">Start Game</string>
     <string name="you_are_gamemaster">You are the Game Master</string>
+    <string name="game_status">Status:</string>
+    <string name="players_list">Players:</string>
 </resources>
