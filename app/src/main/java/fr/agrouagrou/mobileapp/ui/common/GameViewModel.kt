@@ -46,12 +46,10 @@ class GameViewModel : ViewModel() {
         gameManager.value.playerManager.notifications.collect { notification ->
             when (notification) {
                 is Notification.PlayerRegistered -> {
-                    Log.d("GameViewModel", "Player registered: ${notification.player}")
                     cb(gameManager.value.playerManager.players.values.toList())
                 }
 
                 is Notification.PlayerUnregistered -> {
-                    Log.d("GameViewModel", "Player unregistered: ${notification.id}")
                     cb(gameManager.value.playerManager.players.values.toList())
                 }
             }
