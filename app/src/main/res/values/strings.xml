@@ -17,4 +17,5 @@
     <string name="waiting_for_players">Waiting for Players</string>
     <string name="join_game">Join Game</string>
     <string name="start_game">Start Game</string>
+    <string name="you_are_gamemaster">You are the Game Master</string>
 </resources>
