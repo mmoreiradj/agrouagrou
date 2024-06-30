@@ -19,11 +19,7 @@ class ClientGameViewModel(channel: ManagedChannel) : ViewModel() {
 
     private val stub = GameStateGrpcKt.GameStateCoroutineStub(channel)
 
-    init {
-        startStreaming()
-    }
-
-    private fun startStreaming() {
+    fun startStreaming() {
         viewModelScope.launch {
             val request = Empty.getDefaultInstance()
             try {

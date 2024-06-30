@@ -105,6 +105,7 @@ fun AgrouAgrouNavHost(
         }
 
         composable(Destinations.CLIENT_GAME_PHASE) {
+            clientGameViewModel.startStreaming();
             GameRunningRoute(gameState, clientPlayerViewModel)
         }
 
