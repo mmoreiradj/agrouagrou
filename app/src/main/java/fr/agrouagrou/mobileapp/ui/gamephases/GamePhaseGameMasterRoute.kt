@@ -21,6 +21,10 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import fr.agrouagrou.common.GameState
+import fr.agrouagrou.common.player.Player
+import fr.agrouagrou.common.player.PlayerStatus
+import fr.agrouagrou.common.player.Role
 import fr.agrouagrou.grpc_server.R
 import fr.agrouagrou.mobileapp.ui.common.GameViewModel
 import fr.agrouagrou.mobileapp.ui.common.extensions.toLabel
@@ -37,6 +41,24 @@ fun GamePhaseGameMasterRoute(gameViewModel: GameViewModel) {
         gameViewModel.watchForPlayerUpdates {
             players = it
             canStartGame = gameManager.canStartGame()
+        }
+    }
+
+    fun villageVote(playerToKill: Player) {
+        for (player in players.filter { p -> p.status !== PlayerStatus.DEAD }) {
+            gameManager.currentTurn().villagerActions.voteVictim(
+                player.id.toString(),
+                playerToKill.id.toString()
+            )
+        }
+    }
+
+    fun werewolfVote(playerToKill: Player) {
+        for (player in players.filter { p -> p.role == Role.Werewolf }) {
+            gameManager.currentTurn().werewolfActions.voteVictim(
+                player.id.toString(),
+                playerToKill.id.toString()
+            )
         }
     }
 
@@ -69,12 +91,24 @@ fun GamePhaseGameMasterRoute(gameViewModel: GameViewModel) {
                     style = MaterialTheme.typography.titleLarge,
                     modifier = Modifier.padding(bottom = 12.dp)
                 )
+                if (gameState === GameState.DAY_VOTE) {
+                    Text("Which player does the village choose to kill?")
+                }
+                if (gameState === GameState.NIGHT_WEREWOLF) {
+                    Text("Who has to die this night? \uD83D\uDC3A")
+                }
                 Text(
                     text = stringResource(R.string.players_list),
                     style = MaterialTheme.typography.titleLarge,
                 )
             }
-            PlayerList(players)
+            PlayerList(players.filter { p -> p.status !== PlayerStatus.DEAD }, onClick = { playerToKill ->
+                when (gameState) {
+                    GameState.DAY_VOTE -> villageVote(playerToKill)
+                    GameState.NIGHT_WEREWOLF -> werewolfVote(playerToKill)
+                    else -> {}
+                }
+            })
         }
     }
 }
