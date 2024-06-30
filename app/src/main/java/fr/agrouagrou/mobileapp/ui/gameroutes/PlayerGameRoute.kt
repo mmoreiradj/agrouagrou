@@ -20,13 +20,11 @@ import fr.agrouagrou.grpc_server.R
 import fr.agrouagrou.mobileapp.toCard
 import fr.agrouagrou.mobileapp.ui.common.ClientPlayerViewModel
 import fr.agrouagrou.mobileapp.ui.gamephases.CardView
-import io.grpc.ManagedChannel
 
 @Composable
 fun GameRunningRoute(
-    channel: ManagedChannel,
     gameState: GameState,
-    clientPlayerViewModel: ClientPlayerViewModel = ClientPlayerViewModel(channel, "username"),
+    clientPlayerViewModel: ClientPlayerViewModel,
 ) {
     val playerState by clientPlayerViewModel.flowPlayerState.collectAsState()
 

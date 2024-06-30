@@ -6,8 +6,8 @@ import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
-import androidx.navigation.compose.NavHost
 import androidx.navigation.NavHostController
+import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import fr.agrouagrou.grpc_server.BuildConfig
@@ -95,12 +95,17 @@ fun AgrouAgrouNavHost(
 
         composable(Destinations.JOIN_GAME) {
             JoinGameRoute(
-                onJoinGame = { _, gameCode -> handleJoinGame(gameCode, navController) }
+                onJoinGame = { username, gameCode ->
+                    run {
+                        clientPlayerViewModel.flowPlayerState.value.username = username
+                        handleJoinGame(gameCode, navController)
+                    }
+                }
             )
         }
 
         composable(Destinations.CLIENT_GAME_PHASE) {
-            GameRunningRoute(channel, gameState, clientPlayerViewModel)
+            GameRunningRoute(gameState, clientPlayerViewModel)
         }
 
         composable(Destinations.GAME_PHASE_GAMEMASTER) {
