@@ -53,7 +53,7 @@ fun JoinGameForm(
             value = gameCode,
             onValueChange = onGameCodeChange,
             label = { Text(text = stringResource(id = R.string.joingame_form_game_code)) },
-            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number)
+            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Text)
         )
         Button(onClick = { onJoinGame(username, gameCode) }) {
             Row(

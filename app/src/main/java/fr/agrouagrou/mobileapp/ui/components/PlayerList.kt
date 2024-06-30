@@ -5,11 +5,7 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.size
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.automirrored.filled.ArrowForward
-import androidx.compose.material.icons.automirrored.filled.KeyboardArrowRight
 import androidx.compose.material.icons.automirrored.twotone.KeyboardArrowRight
-import androidx.compose.material.icons.filled.PlayArrow
-import androidx.compose.material.icons.twotone.KeyboardArrowRight
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.ListItem
@@ -26,40 +22,35 @@ import fr.agrouagrou.common.player.Role
 import fr.agrouagrou.mobileapp.roleToImage
 
 @Composable
-fun PlayerList(players: List<Player>, onClick: ((Player) -> Unit)? = null ) {
+fun PlayerList(players: List<Player>, onClick: ((Player) -> Unit)? = null) {
     Column {
         players.forEach { player ->
             ListItem(
                 headlineContent = {
                     Text(text = player.username)
                 },
-                supportingContent = if (player.role != null) {
-                    {
-                        Text(text = player.role.toString())
-                    }
-                } else {
-                    null
+                supportingContent = {
+                    Text(text = player.role.toString())
                 },
                 leadingContent = {
                     Image(
                         painter = painterResource(id = roleToImage(player.role)),
                         contentDescription = player.role.toString(),
-                        Modifier
-                            .size(56.dp, 56.dp)
+                        modifier = Modifier.size(56.dp, 56.dp)
                     )
                 },
-                trailingContent = if (onClick != null) {
-                    {
+                trailingContent = {
+                    if (onClick != null) {
                         Icon(
                             imageVector = Icons.AutoMirrored.TwoTone.KeyboardArrowRight,
                             contentDescription = "Edit",
-                            Modifier
+                            modifier = Modifier
                                 .size(24.dp)
                                 .clickable { onClick(player) }
                         )
+                    } else {
+                        null
                     }
-                } else {
-                    null
                 }
             )
             HorizontalDivider()

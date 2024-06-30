@@ -16,4 +16,16 @@
     <string name="your_game_id_is">Your game ID is: %1$s</string>
     <string name="waiting_for_players">Waiting for Players</string>
     <string name="join_game">Join Game</string>
+    <string name="start_game">Start Game</string>
+    <string name="you_are_gamemaster">You are the Game Master</string>
+    <string name="game_status">Status:</string>
+    <string name="players_list">Players:</string>
+    <string name="gamestate_looking_for_players">Looking for Players</string>
+    <string name="gamestate_night_start">Night start</string>
+    <string name="gamestate_night_fortune_teller">Fortune Teller\'s turn</string>
+    <string name="gamestate_night_werewolf">Werewolf\'s turn</string>
+    <string name="gamestate_night_witch">Witch\'s turn</string>
+    <string name="gamestate_day_debate">Day\'s debate</string>
+    <string name="gamestate_day_vote">Day\'s vote</string>
+    <string name="next_turn">Next turn</string>
 </resources>
